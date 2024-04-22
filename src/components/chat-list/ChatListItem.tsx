@@ -7,8 +7,7 @@ const ChatListItem = () => {
       bgColor={"white"}
       textColor={"black"}
       gap={3}
-      borderBottom={"1px solid"}
-      borderColor={"gray.300"}
+      borderRadius={5}
     >
       <Avatar />
       <Box lineHeight={"1.5em"}>

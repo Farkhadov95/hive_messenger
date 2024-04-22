@@ -2,6 +2,7 @@ import { VStack } from "@chakra-ui/react";
 import Message from "./Message";
 import UserMessage from "./UserMessage";
 import UserInput from "./UserInput";
+import bgPattern from "/bg_pattern.svg";
 
 const Chat = () => {
   return (
@@ -11,7 +12,9 @@ const Chat = () => {
         display={"flex"}
         flexGrow={1}
         alignItems={"normal"}
-        bgColor={"blue.800"}
+        bgColor={"orange"}
+        bgImage={bgPattern}
+        bgRepeat={"repeat"}
         borderRadius={10}
         overflow={"scroll"}
         gap={1}
