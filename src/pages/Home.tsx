@@ -5,9 +5,14 @@ import Chat from "../components/chat/Chat";
 
 const Home = () => {
   return (
-    <VStack alignItems={"normal"} paddingTop={"4em"}>
+    <VStack alignItems={"normal"} gap={0} height={"100vh"}>
       <Navbar />
-      <HStack alignItems={"normal"} justifyContent={"space-between"}>
+      <HStack
+        alignItems={"normal"}
+        justifyContent={"space-between"}
+        gap={0}
+        flexGrow={1}
+      >
         <ChatList />
         <Show above="md">
           <Chat />

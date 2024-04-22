@@ -6,13 +6,12 @@ import SearchButton from "./SearchButton";
 const Navbar = () => {
   return (
     <HStack
-      p={5}
       bgColor={"#FFB91F"}
       justify={"space-between"}
-      position={"fixed"}
-      top={0}
       width={"100%"}
       height={"4em"}
+      boxShadow={"lg"}
+      padding={5}
     >
       <HStack>
         <Icon as={GiTreeBeehive} width={"30px"} height={"30px"} />

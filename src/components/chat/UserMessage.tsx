@@ -1,16 +1,17 @@
 import { Box } from "@chakra-ui/react";
 
-const Message = () => {
+const UserMessage = () => {
   return (
     <Box
       bgColor={"gray"}
       width={"fit-content"}
       padding={1}
-      borderRadius={"10px 10px 10px 1px"}
+      borderRadius={"10px 10px 1px 10px"}
+      alignSelf={"end"}
     >
-      Message
+      UserMessage
     </Box>
   );
 };
 
-export default Message;
+export default UserMessage;

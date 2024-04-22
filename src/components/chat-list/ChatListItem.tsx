@@ -9,7 +9,6 @@ const ChatListItem = () => {
       gap={3}
       borderBottom={"1px solid"}
       borderColor={"gray.300"}
-      boxShadow={"md"}
     >
       <Avatar />
       <Box lineHeight={"1.5em"}>
