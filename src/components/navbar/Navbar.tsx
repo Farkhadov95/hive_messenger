@@ -1,27 +1,22 @@
-import { Text, HStack, Icon } from "@chakra-ui/react";
-import { GiTreeBeehive } from "react-icons/gi";
-import Search from "./Search";
-import SearchButton from "./SearchButton";
+import { HStack } from "@chakra-ui/react";
+import NavDrawer from "./NavDrawer";
+import Logo from "../Logo";
 
 const Navbar = () => {
   return (
     <HStack
-      bgColor={"#FFB91F"}
+      gap={10}
+      bgColor={"orange"}
       justify={"space-between"}
       width={"100%"}
       height={"4em"}
       boxShadow={"lg"}
       padding={5}
     >
-      <HStack>
-        <Icon as={GiTreeBeehive} width={"30px"} height={"30px"} />
-        <Text fontWeight={"900"} fontStyle={"italic"}>
-          HIVE
-        </Text>
+      <HStack width={"100%"} justify={"space-between"}>
+        <Logo />
+        <NavDrawer />
       </HStack>
-
-      <Search />
-      <SearchButton />
     </HStack>
   );
 };

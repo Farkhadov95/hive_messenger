@@ -6,7 +6,7 @@ const ChatList = () => {
     <Stack
       gap={1}
       height={"100%"}
-      width={{ base: "100%", md: "40%" }}
+      width={{ base: "100%" }}
       bgColor={"gray.200"}
       padding={1}
     >

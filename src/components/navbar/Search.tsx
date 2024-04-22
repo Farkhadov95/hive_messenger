@@ -5,9 +5,9 @@ const Search = () => {
   return (
     <InputGroup
       overflow={"hidden"}
-      maxWidth={"400px"}
       height={"auto"}
-      display={{ base: "none", md: "block" }}
+      display={{ base: "none", md: "flex" }}
+      flexGrow={1}
     >
       <InputLeftElement pointerEvents="none">
         <Icon as={FaSearch} />

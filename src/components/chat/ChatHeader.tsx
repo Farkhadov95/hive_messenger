@@ -1,14 +1,8 @@
 import { Avatar, HStack, Box, Text } from "@chakra-ui/react";
 
-const ChatListItem = () => {
+const ChatHeader = () => {
   return (
-    <HStack
-      padding={2}
-      bgColor={"white"}
-      textColor={"black"}
-      gap={3}
-      borderRadius={5}
-    >
+    <HStack padding={2} bgColor={"white"} textColor={"black"} gap={3}>
       <Avatar />
       <Box lineHeight={"1.5em"}>
         <Text fontWeight={"bold"}>Name</Text>
@@ -18,4 +12,4 @@ const ChatListItem = () => {
   );
 };
 
-export default ChatListItem;
+export default ChatHeader;

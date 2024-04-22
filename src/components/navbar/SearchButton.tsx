@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 
 const SearchButton = () => {
   return (
-    <Box display={{ base: "block", md: "none" }}>
+    <Box display={{ base: "flex", md: "none" }}>
       <Icon as={FaSearch} />
     </Box>
   );
