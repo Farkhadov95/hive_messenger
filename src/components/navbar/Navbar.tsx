@@ -10,6 +10,9 @@ const Navbar = () => {
       p={5}
       bgColor={"#FFB91F"}
       justify={"space-between"}
+      position={"fixed"}
+      top={0}
+      width={"100%"}
     >
       <HStack>
         <Icon as={GiTreeBeehive} width={"30px"} height={"30px"} />
