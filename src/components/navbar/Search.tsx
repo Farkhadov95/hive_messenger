@@ -6,6 +6,7 @@ const Search = () => {
     <InputGroup
       overflow={"hidden"}
       maxWidth={"400px"}
+      height={"auto"}
       display={{ base: "none", md: "block" }}
     >
       <InputLeftElement pointerEvents="none">

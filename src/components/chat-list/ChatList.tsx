@@ -3,7 +3,7 @@ import ChatListItem from "./ChatListItem";
 
 const ChatList = () => {
   return (
-    <Stack mt={{ base: "4em" }} gap={0}>
+    <Stack gap={0} width={{ base: "100%", md: "40%" }}>
       <ChatListItem />
       <ChatListItem />
       <ChatListItem />

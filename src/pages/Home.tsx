@@ -1,25 +1,19 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { HStack, VStack, Show } from "@chakra-ui/react";
 import Navbar from "../components/navbar/Navbar";
 import ChatList from "../components/chat-list/ChatList";
+import Chat from "../components/chat/Chat";
 
 const Home = () => {
   return (
-    <Grid
-      templateAreas={{ base: `"nav" "aside"`, lg: `"nav nav" "aside main"` }}
-      gridTemplateColumns={{ base: "1fr", lg: "0.5fr 1fr" }}
-    >
-      <GridItem area={"nav"}>
-        <Navbar />
-      </GridItem>
-      <GridItem area={"aside"}>
+    <VStack alignItems={"normal"} paddingTop={"4em"}>
+      <Navbar />
+      <HStack alignItems={"normal"} justifyContent={"space-between"}>
         <ChatList />
-      </GridItem>
-      <Show above="lg">
-        <GridItem area={"main"} bg={"dodgerblue"}>
-          Main
-        </GridItem>
-      </Show>
-    </Grid>
+        <Show above="md">
+          <Chat />
+        </Show>
+      </HStack>
+    </VStack>
   );
 };
 
