@@ -5,7 +5,7 @@ import Chat from "../components/chat/Chat";
 
 const Home = () => {
   return (
-    <HStack alignItems={"normal"}>
+    <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={2}>
       <VStack
         width={{ base: "100%", md: "40%" }}
         alignItems={"normal"}

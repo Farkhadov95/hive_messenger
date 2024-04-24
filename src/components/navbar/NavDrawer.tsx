@@ -10,6 +10,8 @@ import {
   DrawerBody,
   DrawerFooter,
   Input,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import { HiMenu } from "react-icons/hi";
 
@@ -19,20 +21,22 @@ const NavDrawer = () => {
 
   return (
     <>
-      <Button
-        as={HiMenu}
+      <IconButton
         ref={btnRef}
         onClick={onOpen}
         variant={"ghost"}
         padding={1}
         width={"30px"}
         height={"30px"}
-      />
+        aria-label={"Menu"}
+      >
+        <Icon as={HiMenu} />
+      </IconButton>
       <Drawer
         isOpen={isOpen}
         placement="right"
         onClose={onClose}
-        finalFocusRef={btnRef}
+        initialFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>
