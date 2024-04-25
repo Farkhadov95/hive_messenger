@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
-import NewChat from "./NewChat";
+import NewChat from "../new-chat/NewChat";
 
 const ChatList = () => {
   return (
