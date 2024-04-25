@@ -22,7 +22,7 @@ const NewChat = () => {
 
   const { data: allUsers, isLoading } = useQuery<UserRes[]>({
     queryKey: ["users"],
-    queryFn: getAllUsers,
+    queryFn: () => getAllUsers(),
   });
 
   console.log(allUsers);
