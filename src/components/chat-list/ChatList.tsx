@@ -1,5 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
+import NewChat from "./NewChat";
 
 const ChatList = () => {
   return (
@@ -9,10 +10,12 @@ const ChatList = () => {
       width={{ base: "100%" }}
       bgColor={"gray.200"}
       padding={1}
+      position={"relative"}
     >
       <ChatListItem />
       <ChatListItem />
       <ChatListItem />
+      <NewChat />
     </Stack>
   );
 };
