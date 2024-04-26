@@ -1,10 +1,9 @@
 import { VStack, Box, HStack, Button } from "@chakra-ui/react";
-import Logo from "../components/login/Logo";
+import Logo from "../components/Logo";
 import EmailInput from "../components/login/EmailInput";
 import PasswordInput from "../components/login/PasswordInput";
 import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../router/routes";
-// import { useQuery } from "react-query";
 import { loginUser } from "../services/user";
 import { useForm } from "react-hook-form";
 import { CurrentUser, User } from "../types/user";
@@ -39,11 +38,6 @@ const Login = () => {
         console.log(err.message);
       });
   };
-
-  //   const { data } = useQuery({
-  //     queryKey: ["user"],
-  //     queryFn: loginUser(),
-  //   });
 
   return (
     <VStack marginTop={"10vh"}>

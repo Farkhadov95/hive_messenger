@@ -9,7 +9,7 @@ enum UserRoutes {
 export const registerUser = async (newUser: NewUser) => {
   try {
     const res = await api.post(UserRoutes.user, newUser);
-    return res.data;
+    return res;
   } catch (error) {
     throw new Error("Network Error: " + error);
   }

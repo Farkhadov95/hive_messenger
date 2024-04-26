@@ -8,7 +8,7 @@ import EmailInput from "../components/signup/EmailInput";
 import NameInput from "../components/signup/NameInput";
 import PasswordInput from "../components/signup/PasswordInput";
 import ConfPasswordInput from "../components/signup/ConfPasswordInput";
-import Logo from "../components/login/Logo";
+import Logo from "../components/Logo";
 
 const SignUp = () => {
   const form = useForm<NewUserForm>();
@@ -30,17 +30,18 @@ const SignUp = () => {
     };
 
     registerUser(adjustedData)
-      .then((data) =>
+      .then((res) => {
         handleSuccess(
           {
-            username: data.username,
-            email: data.email,
-            _id: data._id,
-            isAdmin: data.isAdmin,
+            username: res.data.username,
+            email: res.data.email,
+            _id: res.data._id,
+            isAdmin: res.data.isAdmin,
           },
-          data.token
-        )
-      )
+          res.headers["x-auth-token"]
+        );
+      })
+
       .catch((err) => console.log(err.message));
   };
 

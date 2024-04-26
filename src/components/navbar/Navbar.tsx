@@ -1,6 +1,6 @@
 import { HStack } from "@chakra-ui/react";
 import NavDrawer from "./NavDrawer";
-import Logo from "../Logo";
+import HeaderLogo from "../HeaderLogo";
 
 const Navbar = () => {
   return (
@@ -14,7 +14,7 @@ const Navbar = () => {
       padding={5}
     >
       <HStack width={"100%"} justify={"space-between"}>
-        <Logo />
+        <HeaderLogo />
         <NavDrawer />
       </HStack>
     </HStack>
