@@ -1,11 +1,11 @@
 import { FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import hookForm from "../../utils/hookForm";
-import { User } from "../../types/user";
+import { NewUserForm } from "../../types/user";
 
 type Props = {
-  register: UseFormRegister<User>;
-  errors: FieldErrors<User>;
+  register: UseFormRegister<NewUserForm>;
+  errors: FieldErrors<NewUserForm>;
 };
 
 const PasswordInput = ({ register, errors }: Props) => {

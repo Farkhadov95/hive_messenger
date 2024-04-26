@@ -1,20 +1,20 @@
 import { FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
-import { User } from "../../types/user";
+import { NewUserForm } from "../../types/user";
 import hookForm from "../../utils/hookForm";
 
 type Props = {
-  register: UseFormRegister<User>;
-  errors: FieldErrors<User>;
+  register: UseFormRegister<NewUserForm>;
+  errors: FieldErrors<NewUserForm>;
 };
 
 const EmailInput = ({ register, errors }: Props) => {
   return (
-    <FormControl>
+    <FormControl isRequired>
       <FormLabel>Email address</FormLabel>
       <Input
         type="email"
-        placeholder="Email"
+        placeholder="example@mail.com"
         border={"1px solid"}
         borderColor={errors.email ? "red.300" : "gray.300"}
         {...register("email", {

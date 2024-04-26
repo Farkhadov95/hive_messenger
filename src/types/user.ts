@@ -19,3 +19,17 @@ export type User = {
   email: string;
   password: string;
 };
+
+export type CurrentUser = {
+  _id: string;
+  username: string;
+  email: string;
+  isAdmin: boolean;
+};
+
+export type NewUserForm = {
+  username: string;
+  email: string;
+  password: string;
+  conf_password: string;
+};
