@@ -63,9 +63,6 @@ const NewChat = () => {
               {allUsers?.map((user) => (
                 <NewChatUser user={user} key={user._id} />
               ))}
-              {allUsers?.map((user) => (
-                <NewChatUser user={user} key={user._id} />
-              ))}
             </VStack>
           </ModalBody>
           <ModalFooter>

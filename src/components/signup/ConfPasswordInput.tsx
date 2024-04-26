@@ -6,7 +6,7 @@ import hookForm from "../../utils/hookForm";
 type Props = {
   register: UseFormRegister<NewUserForm>;
   errors: FieldErrors<NewUserForm>;
-  passwordValue: string;
+  passwordValue: string | undefined;
 };
 
 const PasswordConfInput = ({ register, errors, passwordValue }: Props) => {

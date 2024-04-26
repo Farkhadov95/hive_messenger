@@ -9,15 +9,17 @@ import NameInput from "../components/signup/NameInput";
 import PasswordInput from "../components/signup/PasswordInput";
 import ConfPasswordInput from "../components/signup/ConfPasswordInput";
 import Logo from "../components/Logo";
+import { useState } from "react";
 
 const SignUp = () => {
   const form = useForm<NewUserForm>();
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const navigate = useNavigate();
+  const [passwordValue, setPasswordValue] = useState<string>();
 
   const handleSuccess = (userData: CurrentUser, token: string) => {
-    localStorage.setItem("X-Auth-Token", token);
+    sessionStorage.setItem("X-Auth-Token", token);
     console.log(userData);
     navigate("/");
   };
@@ -59,11 +61,15 @@ const SignUp = () => {
       >
         <NameInput register={register} errors={errors} />
         <EmailInput register={register} errors={errors} />
-        <PasswordInput register={register} errors={errors} />
+        <PasswordInput
+          register={register}
+          errors={errors}
+          onInput={setPasswordValue}
+        />
         <ConfPasswordInput
           register={register}
           errors={errors}
-          passwordValue={form.getValues("password")}
+          passwordValue={passwordValue}
         />
 
         <HStack mt={3} justify={"space-between"}>

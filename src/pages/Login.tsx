@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleSuccess = (userData: CurrentUser, token: string) => {
     console.log(userData);
-    localStorage.setItem("X-Auth-Token", token);
+    sessionStorage.setItem("X-Auth-Token", token);
     navigate("/");
   };
 
