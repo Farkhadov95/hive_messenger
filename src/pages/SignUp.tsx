@@ -13,7 +13,7 @@ const SignUp = () => {
       <Logo />
       <Box
         as="form"
-        width={"400px"}
+        width={{ base: "90vw", sm: "50vw", md: "50vw", lg: "40vw", xl: "30vw" }}
         display={"flex"}
         flexDirection={"column"}
         gap={3}

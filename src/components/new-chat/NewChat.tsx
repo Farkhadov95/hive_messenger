@@ -13,9 +13,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { IoPersonAdd } from "react-icons/io5";
-import { getAllUsers, UserRes } from "../../services/user";
+import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
 import { useQuery } from "react-query";
+import { UserRes } from "../../types/user";
 
 const NewChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

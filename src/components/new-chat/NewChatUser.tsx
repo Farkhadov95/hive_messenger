@@ -1,6 +1,6 @@
 import { Text, VStack } from "@chakra-ui/react";
 import {} from "framer-motion";
-import { UserRes } from "../../services/user";
+import { UserRes } from "../../types/user";
 
 type Props = {
   user: UserRes;
