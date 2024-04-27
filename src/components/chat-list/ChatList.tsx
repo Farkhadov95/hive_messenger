@@ -1,6 +1,5 @@
 import { Stack } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
-import NewChat from "../new-chat/NewChat";
 import { useQuery } from "react-query";
 import { getChats } from "../../services/chats";
 import { Chat } from "../../types/chat";
@@ -21,13 +20,12 @@ const ChatList = () => {
       height={"100%"}
       width={{ base: "100%" }}
       bgColor={"gray.200"}
-      padding={1}
-      position={"relative"}
+      padding={2}
+      overflow={"scroll"}
     >
       {allChats?.map((chat) => (
         <ChatListItem key={chat._id} chat={chat} />
       ))}
-      <NewChat />
     </Stack>
   );
 };

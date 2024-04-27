@@ -1,6 +1,7 @@
-import { HStack } from "@chakra-ui/react";
+import { HStack, Box } from "@chakra-ui/react";
 import NavDrawer from "./NavDrawer";
 import HeaderLogo from "../HeaderLogo";
+import NewChat from "../new-chat/NewChat";
 
 const Navbar = () => {
   return (
@@ -15,7 +16,10 @@ const Navbar = () => {
     >
       <HStack width={"100%"} justify={"space-between"}>
         <HeaderLogo />
-        <NavDrawer />
+        <Box>
+          <NewChat />
+          <NavDrawer />
+        </Box>
       </HStack>
     </HStack>
   );

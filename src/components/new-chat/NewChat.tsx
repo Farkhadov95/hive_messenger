@@ -12,7 +12,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { IoPersonAdd } from "react-icons/io5";
+import { IoMdAdd } from "react-icons/io";
 import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
 import { useQuery } from "react-query";
@@ -34,17 +34,12 @@ const NewChat = () => {
     <>
       <IconButton
         aria-label="new chat"
-        bgColor={"orange"}
-        width={"50px"}
-        height={"50px"}
-        borderRadius={"50%"}
-        position={"absolute"}
-        bottom={"10px"}
-        right={"10px"}
-        zIndex={1}
         onClick={onOpen}
+        variant={"ghost"}
+        colorScheme="'white"
+        padding={0}
       >
-        <Icon as={IoPersonAdd} />
+        <Icon as={IoMdAdd} width={"20px"} height={"20px"} />
       </IconButton>
       <Modal
         isCentered
