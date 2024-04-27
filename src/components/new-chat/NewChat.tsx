@@ -28,11 +28,9 @@ const NewChat = () => {
 
   console.log(allUsers);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <>
       <IconButton
         aria-label="new chat"

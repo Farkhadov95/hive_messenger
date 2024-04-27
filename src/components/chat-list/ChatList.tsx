@@ -1,9 +1,21 @@
 import { Stack } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
 import NewChat from "../new-chat/NewChat";
+import { useQuery } from "react-query";
+import { getChats } from "../../services/chats";
+import { Chat } from "../../types/chat";
 
 const ChatList = () => {
-  return (
+  const { data: allChats, isLoading } = useQuery<Chat[]>({
+    queryKey: ["chats"],
+    queryFn: () => getChats(),
+  });
+
+  console.log(allChats);
+
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <Stack
       gap={1}
       height={"100%"}
@@ -12,9 +24,9 @@ const ChatList = () => {
       padding={1}
       position={"relative"}
     >
-      <ChatListItem />
-      <ChatListItem />
-      <ChatListItem />
+      {allChats?.map((chat) => (
+        <ChatListItem key={chat._id} chat={chat} />
+      ))}
       <NewChat />
     </Stack>
   );

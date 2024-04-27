@@ -41,7 +41,7 @@ const NavDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Account Name</DrawerHeader>
 
           <DrawerBody>
             <Input placeholder="Type here..." />

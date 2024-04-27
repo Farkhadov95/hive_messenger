@@ -1,6 +1,11 @@
 import { Avatar, HStack, Box, Text } from "@chakra-ui/react";
+import { Chat } from "../../types/chat";
 
-const ChatListItem = () => {
+type Props = {
+  chat: Chat;
+};
+
+const ChatListItem = ({ chat }: Props) => {
   return (
     <HStack
       padding={2}
@@ -11,8 +16,8 @@ const ChatListItem = () => {
     >
       <Avatar />
       <Box lineHeight={"1.5em"}>
-        <Text fontWeight={"bold"}>Name</Text>
-        <Text textColor={"gray"}>last message</Text>
+        <Text fontWeight={"bold"}>{chat.chatName}</Text>
+        <Text textColor={"gray"}>{chat.createdAt}</Text>
       </Box>
     </HStack>
   );
