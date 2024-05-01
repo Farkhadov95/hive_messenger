@@ -10,7 +10,7 @@ import PasswordInput from "../components/signup/PasswordInput";
 import ConfPasswordInput from "../components/signup/ConfPasswordInput";
 import Logo from "../components/Logo";
 import { useState } from "react";
-import { useUserStore } from "../context/userStore";
+import { useUserStore } from "../store/userStore";
 
 const SignUp = () => {
   const form = useForm<NewUserForm>();
@@ -19,7 +19,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [passwordValue, setPasswordValue] = useState<string>();
 
-  const setUser = useUserStore((state) => state.setUser);
+  const setUser = useUserStore((state) => state.setCurrentUser);
 
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);

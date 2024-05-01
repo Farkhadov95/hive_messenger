@@ -7,17 +7,19 @@ import { routes } from "../router/routes";
 import { loginUser } from "../services/user";
 import { useForm } from "react-hook-form";
 import { UserRes, User } from "../types/user";
+import { useUserStore } from "../store/userStore";
 
 const Login = () => {
   const form = useForm<User>();
   const { register, handleSubmit, formState } = form;
+  const setUser = useUserStore((state) => state.setCurrentUser);
   const { errors } = formState;
 
   const navigate = useNavigate();
 
   const handleSuccess = (userData: UserRes, token: string) => {
-    console.log(userData);
     sessionStorage.setItem("X-Auth-Token", token);
+    setUser(userData);
     navigate("/");
   };
 

@@ -3,15 +3,15 @@ import { UserRes } from "../types/user";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface UserStore {
-  user: UserRes | null;
-  setUser: (user: UserRes) => void;
+  currentUser: UserRes | null;
+  setCurrentUser: (user: UserRes) => void;
 }
 
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
-      user: null,
-      setUser: (user: UserRes) => set({ user }),
+      currentUser: null,
+      setCurrentUser: (currentUser: UserRes) => set({ currentUser }),
     }),
     {
       name: "user-storage",
