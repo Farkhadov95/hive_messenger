@@ -20,7 +20,7 @@ import { routes } from "../../router/routes";
 
 const NavDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const currentUser = useUserStore((state) => state.currentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
   const setCurrentUser = useUserStore((state) => state.setCurrentUser);
   const btnRef = useRef(null);
   const navigate = useNavigate();
@@ -37,24 +37,25 @@ const NavDrawer = () => {
       <IconButton
         ref={btnRef}
         onClick={onOpen}
-        variant={"ghost"}
-        padding={1}
-        width={"30px"}
-        height={"30px"}
+        variant={"outline"}
+        border={"1px solid"}
+        padding={0}
+        width={"40px"}
+        height={"40px"}
         aria-label={"Menu"}
       >
-        <Icon as={HiMenu} />
+        <Icon as={HiMenu} height={"25px"} width={"20px"} />
       </IconButton>
       <Drawer
         isOpen={isOpen}
-        placement="right"
+        placement="left"
         onClose={onClose}
         initialFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>{}</DrawerHeader>
+          <DrawerHeader>{currentUser?.username}</DrawerHeader>
 
           <DrawerBody>
             <Input placeholder="Type here..." />

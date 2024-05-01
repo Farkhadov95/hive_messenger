@@ -21,10 +21,18 @@ const ChatList = () => {
       padding={2}
       overflow={"scroll"}
     >
-      {allChats?.map((chat) => (
-        <ChatListItem key={chat._id} chat={chat} />
-      ))}
-      <Text>No chats yet</Text>
+      {allChats?.length === 0 ? (
+        <Text
+          fontWeight={"border"}
+          color={"gray.600"}
+          textAlign={"center"}
+          padding={3}
+        >
+          No chats available
+        </Text>
+      ) : (
+        allChats?.map((chat) => <ChatListItem key={chat._id} chat={chat} />)
+      )}
     </Stack>
   ) : (
     <div>Loading...</div>

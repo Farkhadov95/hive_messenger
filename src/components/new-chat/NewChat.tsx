@@ -31,13 +31,15 @@ const NewChat = () => {
     allUsers ? (
       <>
         <IconButton
-          aria-label="new chat"
+          aria-label={"New chat"}
           onClick={onOpen}
-          variant={"ghost"}
-          colorScheme="'white"
+          variant={"outline"}
+          border={"1px solid"}
           padding={0}
+          width={"40px"}
+          height={"40px"}
         >
-          <Icon as={IoMdAdd} width={"20px"} height={"20px"} />
+          <Icon as={IoMdAdd} height={"25px"} width={"20px"} />
         </IconButton>
         <Modal
           isCentered
