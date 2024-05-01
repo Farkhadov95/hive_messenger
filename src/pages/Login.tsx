@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../router/routes";
 import { loginUser } from "../services/user";
 import { useForm } from "react-hook-form";
-import { CurrentUser, User } from "../types/user";
+import { UserRes, User } from "../types/user";
 
 const Login = () => {
   const form = useForm<User>();
@@ -15,7 +15,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSuccess = (userData: CurrentUser, token: string) => {
+  const handleSuccess = (userData: UserRes, token: string) => {
     console.log(userData);
     sessionStorage.setItem("X-Auth-Token", token);
     navigate("/");
@@ -30,6 +30,7 @@ const Login = () => {
             username: data.username,
             email: data.email,
             isAdmin: data.isAdmin,
+            createdAt: data.createdAt,
           },
           data.token
         );

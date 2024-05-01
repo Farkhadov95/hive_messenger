@@ -1,7 +1,7 @@
 import { VStack, HStack, Button, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../router/routes";
-import { CurrentUser, NewUserForm } from "../types/user";
+import { UserRes, NewUserForm } from "../types/user";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../services/user";
 import EmailInput from "../components/signup/EmailInput";
@@ -10,6 +10,7 @@ import PasswordInput from "../components/signup/PasswordInput";
 import ConfPasswordInput from "../components/signup/ConfPasswordInput";
 import Logo from "../components/Logo";
 import { useState } from "react";
+import { useUserStore } from "../context/userStore";
 
 const SignUp = () => {
   const form = useForm<NewUserForm>();
@@ -18,9 +19,11 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [passwordValue, setPasswordValue] = useState<string>();
 
-  const handleSuccess = (userData: CurrentUser, token: string) => {
+  const setUser = useUserStore((state) => state.setUser);
+
+  const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
-    console.log(userData);
+    setUser(userData);
     navigate("/");
   };
 
@@ -33,12 +36,14 @@ const SignUp = () => {
 
     registerUser(adjustedData)
       .then((res) => {
+        console.log(res.data);
         handleSuccess(
           {
+            _id: res.data._id,
             username: res.data.username,
             email: res.data.email,
-            _id: res.data._id,
             isAdmin: res.data.isAdmin,
+            createdAt: res.data.createdAt,
           },
           res.headers["x-auth-token"]
         );

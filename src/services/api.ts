@@ -7,7 +7,7 @@ export default axios.create({
 });
 
 export const getHeaders = () => {
-  const token = localStorage.getItem("X-Auth-Token");
+  const token = sessionStorage.getItem("X-Auth-Token");
   if (!token) throw new Error("Unauthorized request");
   return {
     "Content-Type": "application/json",

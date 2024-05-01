@@ -2,11 +2,8 @@ export type UserRes = {
   _id: string;
   username: string;
   email: string;
-  image: string;
   isAdmin: boolean;
-  date: string;
   createdAt: string;
-  updatedAt: string;
 };
 
 export type NewUser = {
@@ -20,12 +17,12 @@ export type User = {
   password: string;
 };
 
-export type CurrentUser = {
-  _id: string;
-  username: string;
-  email: string;
-  isAdmin: boolean;
-};
+// export type CurrentUser = {
+//   _id: string;
+//   username: string;
+//   email: string;
+//   isAdmin: boolean;
+// };
 
 export type NewUserForm = {
   username: string;
