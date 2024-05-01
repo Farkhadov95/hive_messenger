@@ -8,8 +8,11 @@ export type Chat = {
   isGroupChat: boolean;
   chatName: string;
   users: [ChatUsers];
-  groupAdminId: string;
-  date: string;
+  groupAdmin: string;
+  latestMessage: {
+    sender: ChatUsers;
+    content: string;
+  };
   createdAt: string;
   updatedAt: string;
 };

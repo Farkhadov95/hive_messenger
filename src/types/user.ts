@@ -17,13 +17,6 @@ export type User = {
   password: string;
 };
 
-// export type CurrentUser = {
-//   _id: string;
-//   username: string;
-//   email: string;
-//   isAdmin: boolean;
-// };
-
 export type NewUserForm = {
   username: string;
   email: string;

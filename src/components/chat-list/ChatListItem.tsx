@@ -13,12 +13,14 @@ import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { Chat } from "../../types/chat";
+import { useChatStore } from "../../store/chatStore";
 
 type Props = {
   chat: Chat;
 };
 
 const ChatListItem = ({ chat }: Props) => {
+  const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   return (
     <HStack
       padding={"8px 8px 8px 12px"}
@@ -26,7 +28,7 @@ const ChatListItem = ({ chat }: Props) => {
       textColor={"black"}
       gap={3}
       borderRadius={5}
-      onClick={() => console.log("Chat click")}
+      onClick={() => setCurrentChat(chat)}
     >
       <HStack>
         <Avatar />

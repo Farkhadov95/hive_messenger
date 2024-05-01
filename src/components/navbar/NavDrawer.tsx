@@ -11,7 +11,9 @@ import {
   DrawerFooter,
   Input,
   Icon,
+  Text,
   IconButton,
+  Heading,
 } from "@chakra-ui/react";
 import { HiMenu } from "react-icons/hi";
 import { useUserStore } from "../../store/userStore";
@@ -55,7 +57,14 @@ const NavDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>{currentUser?.username}</DrawerHeader>
+          <DrawerHeader>
+            <Heading as={"h2"} fontSize={"1.5rem"}>
+              {currentUser?.username}
+            </Heading>
+            <Text fontSize={"0.8rem"} color={"gray.400"}>
+              {currentUser?.email}
+            </Text>
+          </DrawerHeader>
 
           <DrawerBody>
             <Input placeholder="Type here..." />

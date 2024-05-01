@@ -1,7 +1,9 @@
 import { Avatar, HStack, Box, Text, IconButton, Icon } from "@chakra-ui/react";
 import { HiDotsVertical } from "react-icons/hi";
+import { useChatStore } from "../../store/chatStore";
 
 const ChatHeader = () => {
+  const currentChat = useChatStore((state) => state.currentChat);
   return (
     <HStack
       padding={2}
@@ -12,8 +14,10 @@ const ChatHeader = () => {
       <HStack textColor={"black"} gap={3}>
         <Avatar />
         <Box lineHeight={"1.5em"}>
-          <Text fontWeight={"bold"}>Name</Text>
-          <Text textColor={"gray"}>last message</Text>
+          <Text fontWeight={"bold"}>{currentChat?.chatName}</Text>
+          {currentChat?.users.map((user) => (
+            <Text textColor={"gray"}>{user.name}</Text>
+          ))}
         </Box>
       </HStack>
       <IconButton

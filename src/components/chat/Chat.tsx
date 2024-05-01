@@ -4,8 +4,11 @@ import UserMessage from "./UserMessage";
 import UserInput from "./UserInput";
 import bgPattern from "/bg_pattern.svg";
 import ChatHeader from "./ChatHeader";
+import { useChatStore } from "../../store/chatStore";
 
 const Chat = () => {
+  const currentChat = useChatStore((state) => state.currentChat);
+  console.log(currentChat);
   return (
     <VStack
       padding={"0 10px 10px 0"}
