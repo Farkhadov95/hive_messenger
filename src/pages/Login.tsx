@@ -20,21 +20,21 @@ const Login = () => {
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
     setUser(userData);
-    navigate("/");
+    navigate(routes.home);
   };
 
   const onSubmit = (data: User) => {
     loginUser(data)
-      .then((data) => {
+      .then((res) => {
         handleSuccess(
           {
-            _id: data._id,
-            username: data.username,
-            email: data.email,
-            isAdmin: data.isAdmin,
-            createdAt: data.createdAt,
+            _id: res.data._id,
+            username: res.data.username,
+            email: res.data.email,
+            isAdmin: res.data.isAdmin,
+            createdAt: res.data.createdAt,
           },
-          data.token
+          res.headers["x-auth-token"]
         );
       })
       .catch((err) => {

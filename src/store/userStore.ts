@@ -4,14 +4,14 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 interface UserStore {
   currentUser: UserRes | null;
-  setCurrentUser: (user: UserRes) => void;
+  setCurrentUser: (user: UserRes | null) => void;
 }
 
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       currentUser: null,
-      setCurrentUser: (currentUser: UserRes) => set({ currentUser }),
+      setCurrentUser: (currentUser: UserRes | null) => set({ currentUser }),
     }),
     {
       name: "user-storage",

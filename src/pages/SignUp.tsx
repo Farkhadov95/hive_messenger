@@ -24,7 +24,7 @@ const SignUp = () => {
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
     setUser(userData);
-    navigate("/");
+    navigate(routes.home);
   };
 
   const onSubmit = (data: NewUserForm) => {
@@ -36,7 +36,6 @@ const SignUp = () => {
 
     registerUser(adjustedData)
       .then((res) => {
-        console.log(res.data);
         handleSuccess(
           {
             _id: res.data._id,

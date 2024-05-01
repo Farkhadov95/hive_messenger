@@ -18,7 +18,7 @@ export const registerUser = async (newUser: NewUser) => {
 export const loginUser = async (user: User) => {
   try {
     const res = await api.post(UserRoutes.login, user);
-    return res.data;
+    return res;
   } catch (error) {
     throw new Error("Network Error: " + error);
   }

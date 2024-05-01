@@ -14,10 +14,23 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { HiMenu } from "react-icons/hi";
+import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../router/routes";
 
 const NavDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const currentUser = useUserStore((state) => state.currentUser);
+  const setCurrentUser = useUserStore((state) => state.setCurrentUser);
   const btnRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("X-Auth-Token");
+    setCurrentUser(null);
+    onClose();
+    navigate(routes.login);
+  };
 
   return (
     <>
@@ -41,7 +54,7 @@ const NavDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Account Name</DrawerHeader>
+          <DrawerHeader>{}</DrawerHeader>
 
           <DrawerBody>
             <Input placeholder="Type here..." />
@@ -51,7 +64,9 @@ const NavDrawer = () => {
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button variant="outline" colorScheme="red" onClick={handleLogout}>
+              Log out
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
