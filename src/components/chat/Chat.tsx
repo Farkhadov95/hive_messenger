@@ -1,15 +1,39 @@
 import { VStack } from "@chakra-ui/react";
-import Message from "./Message";
 import UserMessage from "./UserMessage";
 import UserInput from "./UserInput";
 import bgPattern from "/bg_pattern.svg";
 import ChatHeader from "./ChatHeader";
 import { useChatStore } from "../../store/chatStore";
+import { MessageType } from "../../types/message";
+import { getMessages } from "../../services/chats";
+import Message from "./Message";
+import { useUserStore } from "../../store/userStore";
+import { useEffect, useState } from "react";
 
 const Chat = () => {
   const currentChat = useChatStore((state) => state.currentChat);
-  console.log(currentChat);
-  return (
+  const currentUser = useUserStore((state) => state.currentUser);
+  const [allMessages, setAllMessages] = useState([] as MessageType[]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getMessages(currentChat?._id)
+      .then((res) => {
+        setAllMessages(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setIsLoading(false);
+      });
+  }, [currentChat]);
+
+  console.log("allMessages", allMessages);
+
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
     <VStack
       padding={"0 10px 10px 0"}
       display={"flex"}
@@ -30,9 +54,13 @@ const Chat = () => {
         overflow={"scroll"}
         gap={1}
       >
-        <Message />
-        <Message />
-        <UserMessage />
+        {allMessages?.map((message) =>
+          message.sender._id === currentUser?._id ? (
+            <UserMessage key={message._id} message={message} />
+          ) : (
+            <Message key={message._id} message={message} />
+          )
+        )}
       </VStack>
 
       <UserInput />

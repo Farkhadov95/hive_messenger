@@ -16,16 +16,27 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
-import { useQuery } from "react-query";
 import { UserRes } from "../../types/user";
+import { useEffect, useState } from "react";
 
 const NewChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data: allUsers, isLoading } = useQuery<UserRes[]>({
-    queryKey: ["users"],
-    queryFn: () => getAllUsers(),
-  });
+  const [allUsers, setAllUsers] = useState([] as UserRes[]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getAllUsers()
+      .then((res) => {
+        setAllUsers(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setIsLoading(false);
+      });
+  }, []);
 
   return !isLoading ? (
     allUsers ? (

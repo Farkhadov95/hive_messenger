@@ -1,6 +1,11 @@
 import { Box } from "@chakra-ui/react";
+import { MessageType } from "../../types/message";
 
-const Message = () => {
+interface Props {
+  message: MessageType;
+}
+
+const Message = ({ message }: Props) => {
   return (
     <Box
       bgColor={"gray"}
@@ -8,7 +13,7 @@ const Message = () => {
       padding={1}
       borderRadius={"10px 10px 10px 1px"}
     >
-      Message
+      {message.content}
     </Box>
   );
 };

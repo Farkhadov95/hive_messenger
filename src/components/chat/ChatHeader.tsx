@@ -16,7 +16,9 @@ const ChatHeader = () => {
         <Box lineHeight={"1.5em"}>
           <Text fontWeight={"bold"}>{currentChat?.chatName}</Text>
           {currentChat?.users.map((user) => (
-            <Text textColor={"gray"}>{user.name}</Text>
+            <Text textColor={"gray"} key={user._id}>
+              {user.name}
+            </Text>
           ))}
         </Box>
       </HStack>

@@ -1,14 +1,25 @@
 import { Stack, Text } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
-import { useQuery } from "react-query";
 import { getChats } from "../../services/chats";
+import { useEffect, useState } from "react";
 import { Chat } from "../../types/chat";
 
 const ChatList = () => {
-  const { data: allChats, isLoading } = useQuery<Chat[]>({
-    queryKey: ["chats"],
-    queryFn: () => getChats(),
-  });
+  const [allChats, setAllChats] = useState([] as Chat[]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getChats()
+      .then((res) => {
+        setAllChats(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setIsLoading(false);
+      });
+  }, []);
 
   console.log(allChats);
 
@@ -31,7 +42,7 @@ const ChatList = () => {
           No chats available
         </Text>
       ) : (
-        allChats?.map((chat) => <ChatListItem key={chat._id} chat={chat} />)
+        allChats?.map((chat) => <ChatListItem key={chat?._id} chat={chat} />)
       )}
     </Stack>
   ) : (
