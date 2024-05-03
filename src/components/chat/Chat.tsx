@@ -34,7 +34,7 @@ const Chat = () => {
     <div>Loading...</div>
   ) : (
     <VStack
-      padding={"0 10px 10px 0"}
+      padding={"0 10px 10px 10px"}
       display={"flex"}
       flexGrow={1}
       alignItems={"normal"}

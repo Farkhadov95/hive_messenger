@@ -7,7 +7,7 @@ import { useChatStore } from "../store/chatStore";
 const Home = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   return (
-    <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={2}>
+    <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={0}>
       <VStack
         width={{ base: "100%", md: "40%" }}
         alignItems={"normal"}
@@ -17,7 +17,6 @@ const Home = () => {
         <Navbar />
         <ChatList />
       </VStack>
-
       <Show above="md">{currentChat && <Chat />}</Show>
     </HStack>
   );
