@@ -41,3 +41,27 @@ export const sendMessage = async (chatID: string, content: string) => {
     throw new Error("Network Error: " + error);
   }
 };
+
+export const createChat = async (userID: string, userName: string) => {
+  const data = { userID, userName };
+
+  try {
+    const res = await api.post(ChatsRoutes.chats, data, {
+      headers: getHeaders(),
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};
+
+export const deleteChat = async (chatID: string) => {
+  try {
+    const res = await api.delete(`${ChatsRoutes.chats}${chatID}`, {
+      headers: getHeaders(),
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};

@@ -65,21 +65,13 @@ const NewChat = () => {
             <ModalBody overflow={"scroll"}>
               <VStack alignItems={"start"}>
                 {allUsers?.map((user) => (
-                  <NewChatUser user={user} key={user._id} />
+                  <NewChatUser user={user} key={user._id} onClose={onClose} />
                 ))}
               </VStack>
             </ModalBody>
             <ModalFooter>
-              <Button
-                variant="outline"
-                colorScheme="red"
-                mr={3}
-                onClick={onClose}
-              >
+              <Button variant="outline" colorScheme="red" onClick={onClose}>
                 Close
-              </Button>
-              <Button variant="outline" colorScheme="green">
-                Open
               </Button>
             </ModalFooter>
           </ModalContent>

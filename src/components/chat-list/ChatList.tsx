@@ -2,10 +2,11 @@ import { Stack, Text } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
 import { getChats } from "../../services/chats";
 import { useEffect, useState } from "react";
-import { Chat } from "../../types/chat";
+import { useChatStore } from "../../store/chatStore";
 
 const ChatList = () => {
-  const [allChats, setAllChats] = useState([] as Chat[]);
+  const allChats = useChatStore((state) => state.allChats);
+  const setAllChats = useChatStore((state) => state.setAllChats);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -19,11 +20,9 @@ const ChatList = () => {
         console.log(err.message);
         setIsLoading(false);
       });
-  }, []);
+  }, [setAllChats]);
 
-  console.log(allChats);
-
-  return !isLoading ? (
+  return (
     <Stack
       gap={1}
       height={"100%"}
@@ -32,7 +31,9 @@ const ChatList = () => {
       padding={2}
       overflow={"scroll"}
     >
-      {allChats?.length === 0 ? (
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : allChats?.length === 0 ? (
         <Text
           fontWeight={"border"}
           color={"gray.600"}
@@ -45,8 +46,6 @@ const ChatList = () => {
         allChats?.map((chat) => <ChatListItem key={chat?._id} chat={chat} />)
       )}
     </Stack>
-  ) : (
-    <div>Loading...</div>
   );
 };
 

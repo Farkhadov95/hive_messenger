@@ -13,19 +13,29 @@ import { useState } from "react";
 const UserInput = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = async () => {
     try {
-      const res = await sendMessage(currentChat?._id as string, message); // Pass message directly
-      console.log(res.data);
+      setIsLoading(true);
+      await sendMessage(currentChat?._id as string, message)
+        .then(() => {
+          setMessage("");
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setIsLoading(false);
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <InputGroup>
+    <InputGroup as={"form"}>
       <Input
+        value={message}
         type={"text"}
         placeholder="Message"
         onChange={(e) => setMessage(e.target.value)}
@@ -35,6 +45,8 @@ const UserInput = () => {
           variant={"none"}
           width={"fit-content"}
           height={"auto"}
+          isDisabled={!message}
+          isLoading={isLoading}
           p={0}
           onClick={handleSendMessage}
         >

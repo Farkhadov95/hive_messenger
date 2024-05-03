@@ -14,6 +14,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { Chat } from "../../types/chat";
 import { useChatStore } from "../../store/chatStore";
+import { deleteChat } from "../../services/chats";
 
 type Props = {
   chat: Chat;
@@ -21,6 +22,19 @@ type Props = {
 
 const ChatListItem = ({ chat }: Props) => {
   const setCurrentChat = useChatStore((state) => state.setCurrentChat);
+  const allChats = useChatStore((state) => state.allChats);
+  const setAllChats = useChatStore((state) => state.setAllChats);
+
+  const handleDelete = async () => {
+    try {
+      const res = await deleteChat(chat._id);
+      const filteredChats = allChats.filter((chat) => chat._id !== res._id);
+      setAllChats(filteredChats);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <HStack
       padding={"8px 8px 8px 12px"}
@@ -54,7 +68,10 @@ const ChatListItem = ({ chat }: Props) => {
             icon={<RiDeleteBin6Line />}
             bgColor={"inherit"}
             fontWeight={"bolder"}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}
           >
             Delete
           </MenuItem>

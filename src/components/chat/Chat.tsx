@@ -21,13 +21,12 @@ const Chat = () => {
     getMessages(currentChat?._id)
       .then((res) => {
         setAllMessages(res);
-        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err.message);
-        setIsLoading(false);
-      });
-  }, [currentChat]);
+      })
+      .finally(() => setIsLoading(false));
+  }, [currentChat, currentUser]);
 
   console.log("allMessages", allMessages);
 
