@@ -64,6 +64,9 @@ const NavDrawer = () => {
             <Text fontSize={"0.8rem"} color={"gray.400"}>
               {currentUser?.email}
             </Text>
+            <Text fontSize={"0.8rem"} color={"gray.400"}>
+              {currentUser?._id}
+            </Text>
           </DrawerHeader>
 
           <DrawerBody>
