@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { Chat as ChatType } from "../../types/chat";
 import { MessageType } from "../../types/message";
+import _ from "lodash";
 
 const ENDPOINT = "http://localhost:3000";
 let socket: Socket, selectedChatCompare: ChatType;
@@ -22,6 +23,7 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [socketConnected, setSocketConnected] = useState(false);
   const [allMessages, setAllMessages] = useState([] as MessageType[]);
+  const [isTyping, setIsTyping] = useState(false);
 
   const fetchMessages = () => {
     getMessages(currentChat?._id)
@@ -48,6 +50,29 @@ const Chat = () => {
     }
   };
 
+  const handleTyping = () => {
+    if (!socketConnected) return;
+    if (!isTyping) {
+      setIsTyping(true);
+      socket.emit("typing", currentChat?._id);
+    }
+
+    const debouncedStopTyping = _.debounce(
+      () => {
+        if (isTyping) {
+          socket.emit("stop typing", currentChat?._id);
+          setIsTyping(false);
+        }
+      },
+      3000,
+      { leading: false }
+    );
+
+    debouncedStopTyping();
+  };
+
+  console.log(isTyping);
+
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = currentChat!;
@@ -57,12 +82,22 @@ const Chat = () => {
     socket = io(ENDPOINT);
     socket.emit("setup", currentUser);
     socket.on("connected", () => setSocketConnected(true));
-    console.log("connected");
+    socket.on("typing", () => {
+      setIsTyping(true);
+      console.log("got typing");
+      return;
+    });
+    socket.on("stop typing", () => {
+      setIsTyping(false);
+      console.log("got stop typing");
+      return;
+    });
 
     socket.on("message received", handleNewMessage);
 
     return () => {
       socket.off("message received", handleNewMessage);
+      setSocketConnected(false);
     };
   }, []);
 
@@ -77,7 +112,7 @@ const Chat = () => {
       gap={2}
       height={"100vh"}
     >
-      <ChatHeader />
+      <ChatHeader isTyping={isTyping} />
       <VStack
         p={5}
         display={"flex"}
@@ -105,8 +140,8 @@ const Chat = () => {
 
       <UserInput
         socket={socket}
-        allMessages={allMessages}
         setAllMessages={setAllMessages}
+        handleTyping={handleTyping}
       />
     </VStack>
   );

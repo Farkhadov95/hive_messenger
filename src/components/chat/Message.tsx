@@ -8,7 +8,8 @@ interface Props {
 const Message = ({ message }: Props) => {
   return (
     <Box
-      bgColor={"gray"}
+      bgColor={"white"}
+      color={"black"}
       width={"fit-content"}
       padding={1}
       borderRadius={"10px 10px 10px 1px"}

@@ -14,11 +14,11 @@ import { MessageType } from "../../types/message";
 
 interface Props {
   socket: Socket;
-  allMessages: MessageType[];
   setAllMessages: (value: React.SetStateAction<MessageType[]>) => void;
+  handleTyping: () => void;
 }
 
-const UserInput = ({ socket, setAllMessages }: Props) => {
+const UserInput = ({ socket, setAllMessages, handleTyping }: Props) => {
   const currentChat = useChatStore((state) => state.currentChat);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +29,7 @@ const UserInput = ({ socket, setAllMessages }: Props) => {
       const newMessage = await sendMessage(currentChat?._id as string, message);
       setAllMessages((prev) => [...prev, newMessage]);
       socket.emit("new message", newMessage);
+      socket.emit("stop typing", currentChat?._id);
       setMessage("");
     } catch (error) {
       console.log(error);
@@ -49,7 +50,10 @@ const UserInput = ({ socket, setAllMessages }: Props) => {
         value={message}
         type={"text"}
         placeholder="Message"
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={(e) => {
+          setMessage(e.target.value);
+          handleTyping();
+        }}
       />
       <InputRightElement width="fit-content">
         <Button
