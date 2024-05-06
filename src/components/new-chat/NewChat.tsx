@@ -18,27 +18,22 @@ import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
 import { UserRes } from "../../types/user";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const NewChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [allUsers, setAllUsers] = useState([] as UserRes[]);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { data: users, isFetching } = useQuery({
+    queryKey: ["users"],
+    queryFn: getAllUsers,
+  });
 
   useEffect(() => {
-    setIsLoading(true);
-    getAllUsers()
-      .then((res) => {
-        setAllUsers(res);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setIsLoading(false);
-      });
-  }, []);
+    setAllUsers(users);
+  }, [users]);
 
-  return !isLoading ? (
+  return !isFetching ? (
     allUsers ? (
       <>
         <IconButton

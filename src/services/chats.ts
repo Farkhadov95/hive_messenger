@@ -2,6 +2,7 @@ import api, { getHeaders } from "./api";
 
 enum ChatsRoutes {
   chats = "/chat/",
+  group = "/chat/group/",
   messages = "/message/",
 }
 
@@ -49,6 +50,19 @@ export const createChat = async (userID: string, userName: string) => {
     const res = await api.post(ChatsRoutes.chats, data, {
       headers: getHeaders(),
     });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};
+
+export const createGroupChat = async () => {
+  try {
+    const res = await api.post(
+      ChatsRoutes.group,
+      {},
+      { headers: getHeaders() }
+    );
     return res.data;
   } catch (error) {
     throw new Error("Network Error: " + error);

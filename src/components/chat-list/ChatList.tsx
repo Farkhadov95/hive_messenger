@@ -1,26 +1,24 @@
 import { Stack, Text } from "@chakra-ui/react";
 import ChatListItem from "./ChatListItem";
 import { getChats } from "../../services/chats";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useChatStore } from "../../store/chatStore";
+import { useQuery } from "@tanstack/react-query";
 
 const ChatList = () => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { data: chats, isFetching } = useQuery({
+    queryKey: ["chats"],
+    queryFn: () => getChats(),
+  });
 
   useEffect(() => {
-    setIsLoading(true);
-    getChats()
-      .then((res) => {
-        setAllChats(res);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setIsLoading(false);
-      });
-  }, [setAllChats]);
+    if (chats) {
+      setAllChats(chats);
+    }
+  });
 
   return (
     <Stack
@@ -31,7 +29,7 @@ const ChatList = () => {
       padding={2}
       overflow={"scroll"}
     >
-      {isLoading ? (
+      {isFetching ? (
         <Text>Loading...</Text>
       ) : allChats?.length === 0 ? (
         <Text

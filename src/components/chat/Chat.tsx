@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { Chat as ChatType } from "../../types/chat";
 import { MessageType } from "../../types/message";
-import _ from "lodash";
+import { useQuery } from "@tanstack/react-query";
 
 const ENDPOINT = "http://localhost:3000";
 let socket: Socket, selectedChatCompare: ChatType;
@@ -20,88 +20,45 @@ const Chat = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [socketConnected, setSocketConnected] = useState(false);
   const [allMessages, setAllMessages] = useState([] as MessageType[]);
-  const [isTyping, setIsTyping] = useState(false);
-
-  const fetchMessages = () => {
-    getMessages(currentChat?._id)
-      .then((res) => {
-        setAllMessages(res);
-        socket.emit("join chat", currentChat?._id);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      })
-      .finally(() => setIsLoading(false));
-  };
 
   const handleNewMessage = (newMessageReceived: MessageType) => {
-    console.log("message received");
     if (
       !selectedChatCompare ||
       selectedChatCompare._id !== newMessageReceived.chat._id
     ) {
       // give notification
     } else {
-      console.log(newMessageReceived);
       setAllMessages((prev) => [...prev, newMessageReceived]);
     }
   };
 
-  const handleTyping = () => {
-    if (!socketConnected) return;
-    if (!isTyping) {
-      setIsTyping(true);
-      socket.emit("typing", currentChat?._id);
-    }
-
-    const debouncedStopTyping = _.debounce(
-      () => {
-        if (isTyping) {
-          socket.emit("stop typing", currentChat?._id);
-          setIsTyping(false);
-        }
-      },
-      3000,
-      { leading: false }
-    );
-
-    debouncedStopTyping();
-  };
-
-  console.log(isTyping);
-
-  useEffect(() => {
-    fetchMessages();
-    selectedChatCompare = currentChat!;
-  }, []);
+  const { data: messages, isFetching } = useQuery({
+    queryKey: ["messages"],
+    queryFn: () => getMessages(currentChat?._id),
+  });
 
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", currentUser);
-    socket.on("connected", () => setSocketConnected(true));
-    socket.on("typing", () => {
-      setIsTyping(true);
-      console.log("got typing");
-      return;
-    });
-    socket.on("stop typing", () => {
-      setIsTyping(false);
-      console.log("got stop typing");
-      return;
-    });
-
     socket.on("message received", handleNewMessage);
 
     return () => {
       socket.off("message received", handleNewMessage);
-      setSocketConnected(false);
     };
-  }, [currentUser]);
+  });
 
-  return isLoading ? (
+  useEffect(() => {
+    if (messages) {
+      setAllMessages(messages);
+      socket.emit("join chat", currentChat?._id);
+      selectedChatCompare = currentChat!;
+    }
+  }, [currentChat, currentChat?._id, messages]);
+
+  console.log("render");
+
+  return isFetching ? (
     <div>Loading...</div>
   ) : (
     <VStack
@@ -138,11 +95,7 @@ const Chat = () => {
           )}
       </VStack>
 
-      <UserInput
-        socket={socket}
-        setAllMessages={setAllMessages}
-        handleTyping={handleTyping}
-      />
+      <UserInput socket={socket} setAllMessages={setAllMessages} />
     </VStack>
   );
 };

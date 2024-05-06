@@ -11,39 +11,32 @@ import { useChatStore } from "../../store/chatStore";
 import { useState } from "react";
 import { Socket } from "socket.io-client";
 import { MessageType } from "../../types/message";
+import { useMutation } from "@tanstack/react-query";
 
 interface Props {
   socket: Socket;
   setAllMessages: (value: React.SetStateAction<MessageType[]>) => void;
-  handleTyping: () => void;
 }
 
-const UserInput = ({ socket, setAllMessages, handleTyping }: Props) => {
+const UserInput = ({ socket, setAllMessages }: Props) => {
   const currentChat = useChatStore((state) => state.currentChat);
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendMessage = async () => {
-    try {
-      setIsLoading(true);
-      const newMessage = await sendMessage(currentChat?._id as string, message);
-      setAllMessages((prev) => [...prev, newMessage]);
-      socket.emit("new message", newMessage);
-      socket.emit("stop typing", currentChat?._id);
+  const handleSendMessage = useMutation({
+    mutationFn: () => sendMessage(currentChat?._id as string, message),
+    onSuccess: (data) => {
+      setAllMessages((prev) => [...prev, data]);
+      socket.emit("new message", data);
       setMessage("");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+  });
 
   return (
     <InputGroup
       as={"form"}
       onSubmit={(e) => {
         e.preventDefault();
-        handleSendMessage();
+        handleSendMessage.mutate();
       }}
     >
       <Input
@@ -52,7 +45,6 @@ const UserInput = ({ socket, setAllMessages, handleTyping }: Props) => {
         placeholder="Message"
         onChange={(e) => {
           setMessage(e.target.value);
-          handleTyping();
         }}
       />
       <InputRightElement width="fit-content">
@@ -62,7 +54,6 @@ const UserInput = ({ socket, setAllMessages, handleTyping }: Props) => {
           width={"fit-content"}
           height={"auto"}
           isDisabled={!message}
-          isLoading={isLoading}
           p={0}
         >
           <Icon as={IoSend} />
