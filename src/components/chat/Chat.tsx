@@ -33,7 +33,11 @@ const Chat = () => {
     }
   };
 
-  const { data: messages, isFetching } = useQuery({
+  const {
+    data: messages,
+    isPending,
+    refetch,
+  } = useQuery({
     queryKey: ["messages"],
     queryFn: () => getMessages(currentChat?._id),
   });
@@ -50,15 +54,14 @@ const Chat = () => {
 
   useEffect(() => {
     if (messages) {
+      refetch();
       setAllMessages(messages);
       socket.emit("join chat", currentChat?._id);
       selectedChatCompare = currentChat!;
     }
-  }, [currentChat, currentChat?._id, messages]);
+  }, [currentChat]);
 
-  console.log("render");
-
-  return isFetching ? (
+  return isPending ? (
     <div>Loading...</div>
   ) : (
     <VStack
