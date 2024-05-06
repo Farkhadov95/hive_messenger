@@ -59,7 +59,7 @@ const Chat = () => {
       socket.emit("join chat", currentChat?._id);
       selectedChatCompare = currentChat!;
     }
-  }, [currentChat]);
+  }, [currentChat, messages, refetch]);
 
   return isPending ? (
     <div>Loading...</div>
