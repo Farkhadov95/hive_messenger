@@ -76,7 +76,7 @@ const Chat = () => {
   useEffect(() => {
     fetchMessages();
     selectedChatCompare = currentChat!;
-  }, [currentChat]);
+  }, []);
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -99,7 +99,7 @@ const Chat = () => {
       socket.off("message received", handleNewMessage);
       setSocketConnected(false);
     };
-  }, []);
+  }, [currentUser]);
 
   return isLoading ? (
     <div>Loading...</div>
@@ -112,7 +112,7 @@ const Chat = () => {
       gap={2}
       height={"100vh"}
     >
-      <ChatHeader isTyping={isTyping} />
+      <ChatHeader />
       <VStack
         p={5}
         display={"flex"}

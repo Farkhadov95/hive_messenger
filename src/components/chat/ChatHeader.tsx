@@ -2,11 +2,7 @@ import { Avatar, HStack, Box, Text, IconButton, Icon } from "@chakra-ui/react";
 import { HiDotsVertical } from "react-icons/hi";
 import { useChatStore } from "../../store/chatStore";
 
-interface Prop {
-  isTyping: boolean;
-}
-
-const ChatHeader = ({ isTyping }: Prop) => {
+const ChatHeader = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   return (
     <HStack
@@ -24,7 +20,6 @@ const ChatHeader = ({ isTyping }: Prop) => {
               {user.name}
             </Text>
           ))}
-          {isTyping && <Text textColor={"gray"}>typing...</Text>}
         </Box>
       </HStack>
       <IconButton
