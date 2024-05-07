@@ -8,17 +8,18 @@ import { getMessages } from "../../services/chats";
 import Message from "./Message";
 import { useUserStore } from "../../store/userStore";
 import { useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
 import { Chat as ChatType } from "../../types/chat";
 import { MessageType } from "../../types/message";
 import { useQuery } from "@tanstack/react-query";
+import { useSocketStore } from "../../store/socketStore";
 
-const ENDPOINT = "http://localhost:3000";
-let socket: Socket, selectedChatCompare: ChatType;
+// const ENDPOINT = "http://localhost:3000";
+let selectedChatCompare: ChatType;
 
 const Chat = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
+  const socket = useSocketStore((state) => state.socket);
 
   const [allMessages, setAllMessages] = useState([] as MessageType[]);
 
@@ -43,12 +44,12 @@ const Chat = () => {
   });
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", currentUser);
-    socket.on("message received", handleNewMessage);
+    // socket = io(ENDPOINT);
+    // socket.emit("setup", currentUser);
+    socket?.on("message received", handleNewMessage);
 
     return () => {
-      socket.off("message received", handleNewMessage);
+      socket?.off("message received", handleNewMessage);
     };
   });
 
@@ -56,10 +57,10 @@ const Chat = () => {
     if (messages) {
       refetch();
       setAllMessages(messages);
-      socket.emit("join chat", currentChat?._id);
+      socket?.emit("join chat", currentChat?._id);
       selectedChatCompare = currentChat!;
     }
-  }, [currentChat, messages, refetch]);
+  }, [currentChat, messages, refetch, socket]);
 
   return isPending ? (
     <div>Loading...</div>
@@ -98,7 +99,7 @@ const Chat = () => {
           )}
       </VStack>
 
-      <UserInput socket={socket} setAllMessages={setAllMessages} />
+      <UserInput setAllMessages={setAllMessages} />
     </VStack>
   );
 };

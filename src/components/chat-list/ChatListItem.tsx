@@ -15,6 +15,7 @@ import { MdEdit } from "react-icons/md";
 import { Chat } from "../../types/chat";
 import { useChatStore } from "../../store/chatStore";
 import { deleteChat } from "../../services/chats";
+import { useSocketStore } from "../../store/socketStore";
 
 type Props = {
   chat: Chat;
@@ -24,13 +25,16 @@ const ChatListItem = ({ chat }: Props) => {
   const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
+  const socket = useSocketStore((state) => state.socket);
 
   const handleDelete = async () => {
     try {
       const res = await deleteChat(chat._id);
+      console.log(res);
       const filteredChats = allChats.filter((chat) => chat._id !== res._id);
       setAllChats(filteredChats);
       setCurrentChat(null);
+      socket?.emit("chat deleted", chat._id);
     } catch (error) {
       console.log(error);
     }

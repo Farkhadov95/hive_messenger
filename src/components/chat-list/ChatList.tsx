@@ -4,10 +4,13 @@ import { getChats } from "../../services/chats";
 import { useEffect } from "react";
 import { useChatStore } from "../../store/chatStore";
 import { useQuery } from "@tanstack/react-query";
+import { useSocketStore } from "../../store/socketStore";
 
 const ChatList = () => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
+  const socket = useSocketStore((state) => state.socket);
+  const setCurrentChat = useChatStore((state) => state.setCurrentChat);
 
   const { data: chats, isFetching } = useQuery({
     queryKey: ["chats"],
@@ -19,6 +22,13 @@ const ChatList = () => {
       setAllChats(chats);
     }
   }, [chats, setAllChats]);
+
+  useEffect(() => {
+    socket?.on("chat deleted response", (room) => {
+      setAllChats(allChats.filter((chat) => chat._id !== room));
+      setCurrentChat(null);
+    });
+  }, [allChats, setAllChats, setCurrentChat, socket]);
 
   return (
     <Stack

@@ -9,24 +9,24 @@ import { IoSend } from "react-icons/io5";
 import { sendMessage } from "../../services/chats";
 import { useChatStore } from "../../store/chatStore";
 import { useState } from "react";
-import { Socket } from "socket.io-client";
 import { MessageType } from "../../types/message";
 import { useMutation } from "@tanstack/react-query";
+import { useSocketStore } from "../../store/socketStore";
 
 interface Props {
-  socket: Socket;
   setAllMessages: (value: React.SetStateAction<MessageType[]>) => void;
 }
 
-const UserInput = ({ socket, setAllMessages }: Props) => {
+const UserInput = ({ setAllMessages }: Props) => {
   const currentChat = useChatStore((state) => state.currentChat);
   const [message, setMessage] = useState("");
+  const socket = useSocketStore((state) => state.socket);
 
   const handleSendMessage = useMutation({
     mutationFn: () => sendMessage(currentChat?._id as string, message),
     onSuccess: (data) => {
       setAllMessages((prev) => [...prev, data]);
-      socket.emit("new message", data);
+      socket?.emit("new message", data);
       setMessage("");
     },
   });
