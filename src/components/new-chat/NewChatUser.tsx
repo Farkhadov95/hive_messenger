@@ -3,6 +3,7 @@ import { UserRes } from "../../types/user";
 import { useCallback } from "react";
 import { createChat } from "../../services/chats";
 import { useChatStore } from "../../store/chatStore";
+import { useSocketStore } from "../../store/socketStore";
 
 type Props = {
   user: UserRes;
@@ -12,16 +13,18 @@ type Props = {
 const NewChatUser = ({ user, onClose }: Props) => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
+  const socket = useSocketStore((state) => state.socket);
 
   const handleCreateChat = useCallback(async () => {
     try {
-      const newChats = await createChat(user._id);
-      setAllChats([...allChats, newChats]);
+      const newChat = await createChat(user._id);
+      setAllChats([...allChats, newChat]);
+      socket?.emit("new chat", newChat._id);
       onClose();
     } catch (error) {
       console.error(error);
     }
-  }, [allChats, onClose, setAllChats, user._id]);
+  }, [allChats, onClose, setAllChats, socket, user._id]);
 
   return (
     <VStack

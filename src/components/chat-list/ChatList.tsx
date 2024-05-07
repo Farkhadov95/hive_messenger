@@ -25,9 +25,20 @@ const ChatList = () => {
 
   useEffect(() => {
     socket?.on("chat deleted response", (room) => {
+      console.log("chat deleted");
       setAllChats(allChats.filter((chat) => chat._id !== room));
       setCurrentChat(null);
     });
+
+    socket?.on("new chat response", (chat) => {
+      console.log("new chat created");
+      setAllChats([...allChats, chat]);
+    });
+
+    return () => {
+      socket?.off("chat deleted response");
+      socket?.off("new chat response");
+    };
   }, [allChats, setAllChats, setCurrentChat, socket]);
 
   return (
