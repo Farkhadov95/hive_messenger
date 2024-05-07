@@ -43,8 +43,8 @@ export const sendMessage = async (chatID: string, content: string) => {
   }
 };
 
-export const createChat = async (userID: string, userName: string) => {
-  const data = { userID, userName };
+export const createChat = async (userID: string) => {
+  const data = { userID };
 
   try {
     const res = await api.post(ChatsRoutes.chats, data, {

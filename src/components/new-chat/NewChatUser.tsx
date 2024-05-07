@@ -15,13 +15,13 @@ const NewChatUser = ({ user, onClose }: Props) => {
 
   const handleCreateChat = useCallback(async () => {
     try {
-      const newChats = await createChat(user._id, user.username);
+      const newChats = await createChat(user._id);
       setAllChats([...allChats, newChats]);
       onClose();
     } catch (error) {
       console.error(error);
     }
-  }, [allChats, onClose, setAllChats, user._id, user.username]);
+  }, [allChats, onClose, setAllChats, user._id]);
 
   return (
     <VStack

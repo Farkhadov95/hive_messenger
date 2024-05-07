@@ -30,6 +30,7 @@ const ChatListItem = ({ chat }: Props) => {
       const res = await deleteChat(chat._id);
       const filteredChats = allChats.filter((chat) => chat._id !== res._id);
       setAllChats(filteredChats);
+      setCurrentChat(null);
     } catch (error) {
       console.log(error);
     }

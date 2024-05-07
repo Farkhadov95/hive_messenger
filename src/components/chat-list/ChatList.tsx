@@ -18,7 +18,7 @@ const ChatList = () => {
     if (chats) {
       setAllChats(chats);
     }
-  });
+  }, [chats, setAllChats]);
 
   return (
     <Stack
