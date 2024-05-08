@@ -30,11 +30,10 @@ const ChatListItem = ({ chat }: Props) => {
   const handleDelete = async () => {
     try {
       const res = await deleteChat(chat._id);
-      console.log(res);
       const filteredChats = allChats.filter((chat) => chat._id !== res._id);
       setAllChats(filteredChats);
       setCurrentChat(null);
-      socket?.emit("chat deleted", chat._id);
+      socket?.emit("chat deleted", chat);
     } catch (error) {
       console.log(error);
     }

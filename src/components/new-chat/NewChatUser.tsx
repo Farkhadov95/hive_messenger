@@ -19,7 +19,7 @@ const NewChatUser = ({ user, onClose }: Props) => {
     try {
       const newChat = await createChat(user._id);
       setAllChats([...allChats, newChat]);
-      socket?.emit("new chat", newChat._id);
+      socket?.emit("new chat", newChat);
       onClose();
     } catch (error) {
       console.error(error);
