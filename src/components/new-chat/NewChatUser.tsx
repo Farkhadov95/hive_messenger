@@ -8,9 +8,18 @@ import { useSocketStore } from "../../store/socketStore";
 type Props = {
   user: UserRes;
   onClose: () => void;
+  handleSelect: (userID: string) => void;
+  selectedUserIDs: string[];
+  isGroup: boolean;
 };
 
-const NewChatUser = ({ user, onClose }: Props) => {
+const NewChatUser = ({
+  user,
+  isGroup,
+  onClose,
+  handleSelect,
+  selectedUserIDs,
+}: Props) => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
@@ -26,6 +35,15 @@ const NewChatUser = ({ user, onClose }: Props) => {
     }
   }, [allChats, onClose, setAllChats, socket, user._id]);
 
+  const handleClick = () => {
+    if (isGroup) {
+      handleSelect(user._id);
+    } else {
+      handleCreateChat();
+      onClose();
+    }
+  };
+
   return (
     <VStack
       alignItems={"start"}
@@ -35,9 +53,9 @@ const NewChatUser = ({ user, onClose }: Props) => {
       boxSizing="border-box"
       padding={2}
       borderRadius={5}
-      bgColor={"gray.300"}
+      bgColor={selectedUserIDs.includes(user._id) ? "orange" : "gray.300"}
       color={"black"}
-      onClick={handleCreateChat}
+      onClick={() => handleClick()}
     >
       <Text fontWeight={"bolder"}>{user.username}</Text>
       <Text>{user.email}</Text>

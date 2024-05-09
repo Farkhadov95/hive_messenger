@@ -56,13 +56,12 @@ export const createChat = async (userID: string) => {
   }
 };
 
-export const createGroupChat = async () => {
+export const createGroupChat = async (users: string[], groupName: string) => {
+  const data = { users, groupName };
   try {
-    const res = await api.post(
-      ChatsRoutes.group,
-      {},
-      { headers: getHeaders() }
-    );
+    const res = await api.post(ChatsRoutes.group, data, {
+      headers: getHeaders(),
+    });
     return res.data;
   } catch (error) {
     throw new Error("Network Error: " + error);

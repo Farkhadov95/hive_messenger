@@ -19,6 +19,7 @@ import { HiMenu } from "react-icons/hi";
 import { useUserStore } from "../../store/userStore";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../router/routes";
+import ColorModeSwitch from "../ColorModeSwitch";
 
 const NavDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -73,13 +74,20 @@ const NavDrawer = () => {
 
           <DrawerBody></DrawerBody>
 
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button variant="outline" colorScheme="red" onClick={handleLogout}>
-              Log out
-            </Button>
+          <DrawerFooter justifyContent={"space-between"}>
+            <ColorModeSwitch />
+            <Box>
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                variant="outline"
+                colorScheme="red"
+                onClick={handleLogout}
+              >
+                Log out
+              </Button>
+            </Box>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

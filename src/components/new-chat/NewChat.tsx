@@ -12,17 +12,59 @@ import {
   useDisclosure,
   VStack,
   Text,
+  FormControl,
+  FormLabel,
+  Switch,
+  Input,
+  Box,
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
 import { UserRes } from "../../types/user";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useUserStore } from "../../store/userStore";
+import { createGroupChat } from "../../services/chats";
+import { useSocketStore } from "../../store/socketStore";
+import { useChatStore } from "../../store/chatStore";
 
 const NewChat = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const socket = useSocketStore((state) => state.socket);
+  const currentUser = useUserStore((state) => state.currentUser);
+  const allChats = useChatStore((state) => state.allChats);
+  const setAllChats = useChatStore((state) => state.setAllChats);
   const [allUsers, setAllUsers] = useState([] as UserRes[]);
+  const [selectedUserIDs, setSelectedUserIDs] = useState<string[]>([]);
+  const [isGroup, setIsGroup] = useState(false);
+  const [groupName, setGroupName] = useState("");
+
+  const handleSelect = (userID: string) => {
+    if (selectedUserIDs.some((id) => id === userID)) {
+      setSelectedUserIDs(selectedUserIDs.filter((id) => id !== userID));
+    } else {
+      setSelectedUserIDs([...selectedUserIDs, userID]);
+    }
+  };
+
+  const handleGroupSwitch = () => {
+    setIsGroup(!isGroup);
+    setSelectedUserIDs([]);
+  };
+
+  const handleCreateGroup = useMutation({
+    mutationFn: () =>
+      createGroupChat(selectedUserIDs, groupName || "New Group"),
+    onSuccess: (data) => {
+      socket?.emit("new group chat", data);
+      setAllChats([...allChats, data]);
+      setSelectedUserIDs([]);
+      setGroupName("");
+      onClose();
+      setIsGroup(false);
+    },
+  });
 
   const { data: users, isFetching } = useQuery({
     queryKey: ["users"],
@@ -55,19 +97,62 @@ const NewChat = () => {
         >
           <ModalOverlay />
           <ModalContent maxHeight={"500px"}>
-            <ModalHeader>Choose contact</ModalHeader>
+            <ModalHeader>
+              <Text>Select contact</Text>
+              {isGroup && (
+                <Box mt={2}>
+                  <Text mb={1} ml={1} fontSize={"0.8rem"}>
+                    Group Name
+                  </Text>
+                  <Input
+                    value={groupName}
+                    aria-label="group name"
+                    placeholder="Your group name"
+                    onChange={(e) => setGroupName(e.target.value)}
+                  />
+                </Box>
+              )}
+            </ModalHeader>
             <ModalCloseButton />
-            <ModalBody overflow={"scroll"}>
+            <ModalBody overflow={"scroll"} my={0}>
               <VStack alignItems={"start"}>
-                {allUsers?.map((user) => (
-                  <NewChatUser user={user} key={user._id} onClose={onClose} />
-                ))}
+                {allUsers
+                  .filter((user) => user._id !== currentUser?._id)
+                  ?.map((user) => (
+                    <NewChatUser
+                      user={user}
+                      key={user._id}
+                      onClose={onClose}
+                      handleSelect={handleSelect}
+                      selectedUserIDs={selectedUserIDs}
+                      isGroup={isGroup}
+                    />
+                  ))}
               </VStack>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter gap={2}>
+              <FormControl display="flex" alignItems="center">
+                <FormLabel htmlFor="group" mb="0">
+                  Group
+                </FormLabel>
+                <Switch
+                  id="group"
+                  colorScheme="orange"
+                  onChange={handleGroupSwitch}
+                />
+              </FormControl>
               <Button variant="outline" colorScheme="red" onClick={onClose}>
                 Close
               </Button>
+              {isGroup && (
+                <Button
+                  variant="outline"
+                  colorScheme="orange"
+                  onClick={() => handleCreateGroup.mutate()}
+                >
+                  Create
+                </Button>
+              )}
             </ModalFooter>
           </ModalContent>
         </Modal>
