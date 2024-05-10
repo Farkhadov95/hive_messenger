@@ -26,12 +26,15 @@ const ChatList = () => {
   useEffect(() => {
     if (socket?.connected) {
       socket?.on("chat deleted response", (resChat) => {
-        console.log(allChats);
         setAllChats(allChats.filter((chat) => chat._id !== resChat._id));
         setCurrentChat(null);
       });
 
       socket?.on("new chat response", (chat) => {
+        setAllChats([...allChats, chat]);
+      });
+
+      socket?.on("new group chat response", (chat) => {
         setAllChats([...allChats, chat]);
       });
     }
