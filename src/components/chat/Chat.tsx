@@ -13,7 +13,6 @@ import { MessageType } from "../../types/message";
 import { useQuery } from "@tanstack/react-query";
 import { useSocketStore } from "../../store/socketStore";
 
-// const ENDPOINT = "http://localhost:3000";
 let selectedChatCompare: ChatType;
 
 const Chat = () => {
@@ -29,6 +28,7 @@ const Chat = () => {
       selectedChatCompare._id !== newMessageReceived.chat._id
     ) {
       // give notification
+      console.log("New Notification");
     } else {
       setAllMessages((prev) => [...prev, newMessageReceived]);
     }
@@ -44,23 +44,22 @@ const Chat = () => {
   });
 
   useEffect(() => {
-    // socket = io(ENDPOINT);
-    // socket.emit("setup", currentUser);
+    if (messages) {
+      refetch();
+      setAllMessages(messages);
+      socket?.emit("join chat", currentChat?._id);
+      console.log("joined chat");
+      selectedChatCompare = currentChat!;
+    }
+  }, [currentChat, messages, refetch, socket]);
+
+  useEffect(() => {
     socket?.on("message received", handleNewMessage);
 
     return () => {
       socket?.off("message received", handleNewMessage);
     };
   });
-
-  useEffect(() => {
-    if (messages) {
-      refetch();
-      setAllMessages(messages);
-      socket?.emit("join chat", currentChat?._id);
-      selectedChatCompare = currentChat!;
-    }
-  }, [currentChat, messages, refetch, socket]);
 
   return isPending ? (
     <div>Loading...</div>
@@ -72,6 +71,8 @@ const Chat = () => {
       alignItems={"normal"}
       gap={2}
       height={"100vh"}
+      bgColor={"gray.700"}
+      boxShadow={"5px"}
     >
       <ChatHeader />
       <VStack

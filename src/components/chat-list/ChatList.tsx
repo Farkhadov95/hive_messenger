@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useChatStore } from "../../store/chatStore";
 import { useQuery } from "@tanstack/react-query";
 import { useSocketStore } from "../../store/socketStore";
+import { replaceChat } from "./utils";
 
 const ChatList = () => {
   const allChats = useChatStore((state) => state.allChats);
@@ -32,6 +33,11 @@ const ChatList = () => {
 
       socket?.on("new chat response", (chat) => {
         setAllChats([...allChats, chat]);
+      });
+
+      socket?.on("new chat name response", (chat) => {
+        const newChats = replaceChat(allChats, chat);
+        setAllChats(newChats);
       });
 
       socket?.on("new group chat response", (chat) => {

@@ -11,11 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { MdEdit } from "react-icons/md";
 import { Chat } from "../../types/chat";
 import { useChatStore } from "../../store/chatStore";
 import { deleteChat } from "../../services/chats";
 import { useSocketStore } from "../../store/socketStore";
+import ChatName from "./ChatName";
 
 type Props = {
   chat: Chat;
@@ -27,12 +27,15 @@ const ChatListItem = ({ chat }: Props) => {
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
 
+  // const isMdScreen = useMediaQuery("(min-width: 1024 )");
+  // const navigate = useNavigate();
+
   const handleDelete = async () => {
     try {
       const res = await deleteChat(chat._id);
       const filteredChats = allChats.filter((chat) => chat._id !== res._id);
       setAllChats(filteredChats);
-      setCurrentChat(null);
+      setCurrentChat(null); // null only if current
       socket?.emit("chat deleted", chat);
     } catch (error) {
       console.log(error);
@@ -46,7 +49,9 @@ const ChatListItem = ({ chat }: Props) => {
       textColor={"black"}
       gap={3}
       borderRadius={5}
-      onClick={() => setCurrentChat(chat)}
+      onClick={() => {
+        setCurrentChat(chat);
+      }}
     >
       <HStack>
         <Avatar />
@@ -79,14 +84,7 @@ const ChatListItem = ({ chat }: Props) => {
           >
             Delete
           </MenuItem>
-          <MenuItem
-            icon={<MdEdit />}
-            bgColor={"inherit"}
-            fontWeight={"bolder"}
-            onClick={(e) => e.stopPropagation()}
-          >
-            Edit name
-          </MenuItem>
+          <ChatName chat={chat} />
         </MenuList>
       </Menu>
     </HStack>

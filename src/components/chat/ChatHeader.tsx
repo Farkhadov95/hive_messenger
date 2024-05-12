@@ -1,11 +1,23 @@
 import { Avatar, HStack, Box, Text, IconButton, Icon } from "@chakra-ui/react";
 import { HiDotsVertical } from "react-icons/hi";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { useChatStore } from "../../store/chatStore";
 import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const ChatHeader = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
+  const navigate = useNavigate();
+
+  // const isMoreThanThreeUsers = () =>
+  //   currentChat && currentChat?.users?.length > 3;
+
+  // const displayUsers = () =>
+  //   currentChat &&
+  //   (isMoreThanThreeUsers()
+  //     ? currentChat.users.slice(0, 2)
+  //     : currentChat.users);
   return (
     <HStack
       padding={2}
@@ -14,6 +26,15 @@ const ChatHeader = () => {
       borderRadius={"0 0 10px 10px"}
     >
       <HStack textColor={"black"} gap={3}>
+        <IconButton
+          display={{ base: "initial", md: "none" }}
+          padding={"auto"}
+          aria-label={"return"}
+          icon={<IoMdArrowRoundBack />}
+          color={"orange"}
+          fontSize={"24px"}
+          onClick={() => navigate(-1)}
+        />
         <Avatar />
         <Box lineHeight={"1.5em"}>
           <Text fontWeight={"bold"}>{currentChat?.chatName}</Text>

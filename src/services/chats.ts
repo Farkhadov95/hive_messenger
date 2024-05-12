@@ -4,6 +4,7 @@ enum ChatsRoutes {
   chats = "/chat/",
   group = "/chat/group/",
   messages = "/message/",
+  rename = "/chat/rename/",
 }
 
 export const getChats = async () => {
@@ -60,6 +61,18 @@ export const createGroupChat = async (users: string[], groupName: string) => {
   const data = { users, groupName };
   try {
     const res = await api.post(ChatsRoutes.group, data, {
+      headers: getHeaders(),
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};
+
+export const changeName = async (chatID: string, chatName: string) => {
+  const data = { chatName };
+  try {
+    const res = await api.patch(`${ChatsRoutes.rename}${chatID}`, data, {
       headers: getHeaders(),
     });
     return res.data;
