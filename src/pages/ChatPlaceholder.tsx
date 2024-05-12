@@ -1,5 +1,6 @@
 import { Box, Icon, Text, VStack } from "@chakra-ui/react";
 import { BiMessageSquareAdd } from "react-icons/bi";
+import bgPattern from "/bg_pattern.svg";
 
 const ChatPlaceholder = () => {
   return (
@@ -13,7 +14,7 @@ const ChatPlaceholder = () => {
       boxShadow={"5px"}
     >
       <Box
-        bgColor={"orange.300"}
+        bgImage={bgPattern}
         height={"100%"}
         borderRadius={5}
         padding={5}
@@ -30,7 +31,7 @@ const ChatPlaceholder = () => {
             No messages here yet...
           </Text>
           <Text fontSize={"12px"} fontWeight={"bold"} color={"gray.700"}>
-            Select chat or create new one
+            Select chat or Create new one
           </Text>
           <Icon as={BiMessageSquareAdd} fontSize={"30px"} color={"gray.700"} />
         </VStack>

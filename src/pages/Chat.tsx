@@ -48,7 +48,6 @@ const Chat = () => {
       refetch();
       setAllMessages(messages);
       socket?.emit("join chat", currentChat?._id);
-      console.log("joined chat");
       selectedChatCompare = currentChat!;
     }
   }, [currentChat, messages, refetch, socket]);

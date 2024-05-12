@@ -7,7 +7,6 @@ interface Props {
 }
 
 const UserMessage = ({ message }: Props) => {
-  console.log(message.createdAt);
   return (
     <Box
       bgColor={"white"}
