@@ -1,12 +1,11 @@
-import { HStack, VStack, Show } from "@chakra-ui/react";
-import Navbar from "../components/navbar/Navbar";
-import ChatList from "../components/chat-list/ChatList";
+import { HStack, Show } from "@chakra-ui/react";
 import Chat from "../components/chat/Chat";
 import { useChatStore } from "../store/chatStore";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useUserStore } from "../store/userStore";
 import { useSocketStore } from "../store/socketStore";
+import Chats from "./Chats";
 
 const ENDPOINT = "http://localhost:3000";
 
@@ -28,15 +27,7 @@ const Home = () => {
 
   return socketInitialized ? (
     <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={0}>
-      <VStack
-        width={{ base: "100%", md: "40%" }}
-        alignItems={"normal"}
-        height={"100vh"}
-        gap={0}
-      >
-        <Navbar />
-        <ChatList />
-      </VStack>
+      <Chats />
       <Show above="md">{currentChat && <Chat />}</Show>
     </HStack>
   ) : (

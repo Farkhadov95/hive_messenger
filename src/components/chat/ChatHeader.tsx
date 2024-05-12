@@ -38,7 +38,14 @@ const ChatHeader = () => {
         <Avatar />
         <Box lineHeight={"1.5em"}>
           <Text fontWeight={"bold"}>{currentChat?.chatName}</Text>
-          <HStack gap={1} divider={<Text>,</Text>}>
+          <HStack
+            gap={1}
+            divider={
+              <Text textColor={"gray"} ml={"-3px"}>
+                ,
+              </Text>
+            }
+          >
             {currentChat?.users.map((user) => (
               <Text textColor={"gray"} key={user._id}>
                 {user._id === currentUser?._id ? "You" : user.username}

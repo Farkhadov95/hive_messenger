@@ -16,6 +16,7 @@ import { useChatStore } from "../../store/chatStore";
 import { deleteChat } from "../../services/chats";
 import { useSocketStore } from "../../store/socketStore";
 import ChatName from "./ChatName";
+import moment from "moment";
 
 type Props = {
   chat: Chat;
@@ -57,7 +58,9 @@ const ChatListItem = ({ chat }: Props) => {
         <Avatar />
         <Box lineHeight={"1.5em"}>
           <Text fontWeight={"bold"}>{chat.chatName}</Text>
-          <Text textColor={"gray"}>{chat.createdAt}</Text>
+          <Text textColor={"gray"} fontSize={"sm"}>
+            Updated: {moment(chat.updatedAt).format("MMMM Do YYYY")}
+          </Text>
         </Box>
       </HStack>
       <Menu>
