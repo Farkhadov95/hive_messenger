@@ -5,7 +5,7 @@ import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
 import ChatList from "../components/chat-list/ChatList";
-import Chat from "../components/chat/Chat";
+import Chat from "../pages/Chat";
 
 export const routes = {
   home: "/",

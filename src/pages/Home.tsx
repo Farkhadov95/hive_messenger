@@ -1,11 +1,12 @@
 import { HStack, Show } from "@chakra-ui/react";
-import Chat from "../components/chat/Chat";
+import Chat from "./Chat";
 import { useChatStore } from "../store/chatStore";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useUserStore } from "../store/userStore";
 import { useSocketStore } from "../store/socketStore";
 import Chats from "./Chats";
+import ChatPlaceholder from "./ChatPlaceholder";
 
 const ENDPOINT = "http://localhost:3000";
 
@@ -28,7 +29,7 @@ const Home = () => {
   return socketInitialized ? (
     <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={0}>
       <Chats />
-      <Show above="md">{currentChat && <Chat />}</Show>
+      <Show above="md">{currentChat ? <Chat /> : <ChatPlaceholder />}</Show>
     </HStack>
   ) : (
     <div>Loading...</div>

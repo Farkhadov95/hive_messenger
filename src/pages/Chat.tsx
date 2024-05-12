@@ -1,17 +1,17 @@
 import { VStack } from "@chakra-ui/react";
-import UserMessage from "./UserMessage";
-import UserInput from "./UserInput";
+import UserMessage from "../components/chat/UserMessage";
+import UserInput from "../components/chat/UserInput";
 import bgPattern from "/bg_pattern.svg";
-import ChatHeader from "./ChatHeader";
-import { useChatStore } from "../../store/chatStore";
-import { getMessages } from "../../services/chats";
-import Message from "./Message";
-import { useUserStore } from "../../store/userStore";
+import ChatHeader from "../components/chat/ChatHeader";
+import { useChatStore } from "../store/chatStore";
+import { getMessages } from "../services/chats";
+import Message from "../components/chat/Message";
+import { useUserStore } from "../store/userStore";
 import { useEffect, useState } from "react";
-import { Chat as ChatType } from "../../types/chat";
-import { MessageType } from "../../types/message";
+import { Chat as ChatType } from "../types/chat";
+import { MessageType } from "../types/message";
 import { useQuery } from "@tanstack/react-query";
-import { useSocketStore } from "../../store/socketStore";
+import { useSocketStore } from "../store/socketStore";
 
 let selectedChatCompare: ChatType;
 
