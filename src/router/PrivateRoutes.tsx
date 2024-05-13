@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { routes } from "./routes";
+import { useUserStore } from "../store/userStore";
 
 const PrivateRoutes = () => {
-  const hasToken = sessionStorage.getItem("X-Auth-Token");
-  if (!hasToken) {
+  const currentUser = useUserStore((state) => state.currentUser);
+  if (!currentUser) {
     return <Navigate to={`${routes.login}`} />;
   }
   return <Outlet />;
