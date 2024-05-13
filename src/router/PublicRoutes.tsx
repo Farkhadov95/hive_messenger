@@ -9,11 +9,11 @@ import Welcome from "../pages/Welcome";
 
 export const routes = {
   welcome: "/",
-  home: "/",
-  login: "/login",
-  signup: "/signup",
-  chats: "/chats",
-  chat: "/chat/:id",
+  home: "home",
+  login: "login",
+  signup: "signup",
+  chats: "chats",
+  chat: "chat/:id",
   notFound: "*",
 };
 
