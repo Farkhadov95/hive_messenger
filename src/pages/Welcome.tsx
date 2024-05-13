@@ -1,8 +1,8 @@
 import { Icon, Button, Heading, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { routes } from "../router/Routes";
 import { GiTreeBeehive } from "react-icons/gi";
 import { IoIosArrowForward } from "react-icons/io";
+import { routes } from "../router/PublicRoutes";
 
 const Welcome = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import Logo from "../components/Logo";
 import EmailInput from "../components/login/EmailInput";
 import PasswordInput from "../components/login/PasswordInput";
 import { NavLink, useNavigate } from "react-router-dom";
-import { routes } from "../router/Routes";
+import { routes } from "../router/PublicRoutes";
 import { loginUser } from "../services/user";
 import { useForm } from "react-hook-form";
 import { UserRes, User } from "../types/user";
