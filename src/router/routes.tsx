@@ -8,7 +8,7 @@ import Chat from "../pages/Chat";
 import Chats from "../pages/Chats";
 
 export const routes = {
-  home: "/",
+  main: "/",
   login: "/login",
   signup: "/signup",
   chats: "/chats",
@@ -18,18 +18,10 @@ export const routes = {
 
 const router = createBrowserRouter([
   {
-    path: routes.login,
-    element: <Login />,
-  },
-  {
-    path: routes.signup,
-    element: <SignUp />,
-  },
-  {
     element: <PrivateRoutes />,
     children: [
       {
-        path: routes.home,
+        path: routes.main,
         element: <Home />,
       },
       {
@@ -41,6 +33,14 @@ const router = createBrowserRouter([
         element: <Chat />,
       },
     ],
+  },
+  {
+    path: routes.login,
+    element: <Login />,
+  },
+  {
+    path: routes.signup,
+    element: <SignUp />,
   },
   {
     path: routes.notFound,

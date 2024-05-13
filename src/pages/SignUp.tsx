@@ -24,7 +24,7 @@ const SignUp = () => {
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
     setUser(userData);
-    navigate(routes.home);
+    navigate(routes.main);
   };
 
   const onSubmit = (data: NewUserForm) => {
