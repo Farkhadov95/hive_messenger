@@ -10,47 +10,49 @@ import Welcome from "../pages/Welcome";
 
 export const routes = {
   welcome: "/",
-  home: "/home",
-  login: "/login",
-  signup: "/signup",
-  chats: "/chats",
-  chat: "/chat/:id",
+  home: "home",
+  login: "login",
+  signup: "signup",
+  chats: "chats",
+  chat: "chat/:id",
   notFound: "*",
 };
 
 const router = createBrowserRouter([
   {
-    element: <PrivateRoutes />,
-    children: [
-      {
-        path: routes.home,
-        element: <Home />,
-      },
-      {
-        path: routes.chats,
-        element: <Chats />,
-      },
-      {
-        path: routes.chat,
-        element: <Chat />,
-      },
-    ],
-  },
-  {
     path: routes.welcome,
     element: <Welcome />,
-  },
-  {
-    path: routes.login,
-    element: <Login />,
-  },
-  {
-    path: routes.signup,
-    element: <SignUp />,
-  },
-  {
-    path: routes.notFound,
-    element: <NotFound />,
+    children: [
+      {
+        element: <PrivateRoutes />,
+        children: [
+          {
+            path: routes.home,
+            element: <Home />,
+          },
+          {
+            path: routes.chats,
+            element: <Chats />,
+          },
+          {
+            path: routes.chat,
+            element: <Chat />,
+          },
+        ],
+      },
+      {
+        path: routes.login,
+        element: <Login />,
+      },
+      {
+        path: routes.signup,
+        element: <SignUp />,
+      },
+      {
+        path: routes.notFound,
+        element: <NotFound />,
+      },
+    ],
   },
 ]);
 
