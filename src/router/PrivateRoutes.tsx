@@ -4,8 +4,9 @@ import { routes } from "./PublicRoutes";
 
 const PrivateRoutes = () => {
   const currentUser = useUserStore((state) => state.currentUser);
-  if (currentUser?._id === "") return <Navigate to={`${routes.login}`} />;
-  return <Outlet />;
+  console.log("currentUser", currentUser);
+  console.log("route", routes.login);
+  return currentUser ? <Outlet /> : <Navigate to={`${routes.login}`} />;
 };
 
 export default PrivateRoutes;
