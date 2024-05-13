@@ -8,18 +8,45 @@ import Welcome from "../pages/Welcome";
 
 export const routes = {
   welcome: "/",
-  home: "/home",
-  login: "/login",
-  signup: "/signup",
-  chats: "/chats",
-  chat: "/chat/:id",
+  home: "home",
+  login: "login",
+  signup: "signup",
+  chats: "chats",
+  chat: "chat/:id",
   notFound: "*",
 };
+
+// const router = createBrowserRouter([
+//   {
+//     path: routes.welcome,
+//     element: <Welcome />,
+//   },
+//   {
+//     path: routes.login,
+//     element: <Login />,
+//   },
+//   {
+//     path: routes.signup,
+//     element: <SignUp />,
+//   },
+//   {
+//     element: <PrivateRoutes />,
+//     children: [
+//       {
+//         path: routes.home,
+//         element: <Home />,
+//       },
+//     ],
+//   },
+//   {
+//     path: routes.notFound,
+//     element: <NotFound />,
+//   },
+// ]);
 
 const router = createBrowserRouter([
   {
     path: routes.welcome,
-
     children: [
       {
         index: true,
