@@ -54,6 +54,7 @@ const UserInput = ({ setAllMessages }: Props) => {
           width={"fit-content"}
           height={"auto"}
           isDisabled={!message}
+          isLoading={handleSendMessage.isPending}
           p={0}
         >
           <Icon as={IoSend} />

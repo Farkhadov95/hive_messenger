@@ -53,16 +53,20 @@ const NewChat = () => {
     setSelectedUserIDs([]);
   };
 
+  const handleClose = () => {
+    setSelectedUserIDs([]);
+    setIsGroup(false);
+    setGroupName("");
+    onClose();
+  };
+
   const handleCreateGroup = useMutation({
     mutationFn: () =>
       createGroupChat(selectedUserIDs, groupName || "New Group"),
     onSuccess: (data) => {
       socket?.emit("new group chat", data);
       setAllChats([...allChats, data]);
-      setSelectedUserIDs([]);
-      setGroupName("");
-      onClose();
-      setIsGroup(false);
+      handleClose();
     },
   });
 
@@ -91,7 +95,7 @@ const NewChat = () => {
         </IconButton>
         <Modal
           isCentered
-          onClose={onClose}
+          onClose={handleClose}
           isOpen={isOpen}
           motionPreset="slideInBottom"
         >
@@ -122,7 +126,7 @@ const NewChat = () => {
                     <NewChatUser
                       user={user}
                       key={user._id}
-                      onClose={onClose}
+                      handleClose={handleClose}
                       handleSelect={handleSelect}
                       selectedUserIDs={selectedUserIDs}
                       isGroup={isGroup}
@@ -141,7 +145,7 @@ const NewChat = () => {
                   onChange={handleGroupSwitch}
                 />
               </FormControl>
-              <Button variant="outline" colorScheme="red" onClick={onClose}>
+              <Button variant="outline" colorScheme="red" onClick={handleClose}>
                 Close
               </Button>
               {isGroup && (

@@ -19,7 +19,7 @@ const UserMessage = ({ message }: Props) => {
       paddingBottom={"15px"}
       paddingRight={"20px"}
     >
-      <Text>{message.content}</Text>
+      <Text minWidth={"25px"}>{message.content}</Text>
       <Text fontSize={"8px"} position={"absolute"} right={"2"} bottom={"1"}>
         {moment(message.createdAt).format("LT")}
       </Text>

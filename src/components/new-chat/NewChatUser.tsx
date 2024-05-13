@@ -4,10 +4,12 @@ import { useCallback } from "react";
 import { createChat } from "../../services/chats";
 import { useChatStore } from "../../store/chatStore";
 import { useSocketStore } from "../../store/socketStore";
+import { Chat } from "../../types/chat";
+import { useUserStore } from "../../store/userStore";
 
 type Props = {
   user: UserRes;
-  onClose: () => void;
+  handleClose: () => void;
   handleSelect: (userID: string) => void;
   selectedUserIDs: string[];
   isGroup: boolean;
@@ -16,12 +18,14 @@ type Props = {
 const NewChatUser = ({
   user,
   isGroup,
-  onClose,
+  handleClose,
   handleSelect,
   selectedUserIDs,
 }: Props) => {
   const allChats = useChatStore((state) => state.allChats);
+  const currentUser = useUserStore((state) => state.currentUser);
   const setAllChats = useChatStore((state) => state.setAllChats);
+  const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   const socket = useSocketStore((state) => state.socket);
 
   const handleCreateChat = useCallback(async () => {
@@ -29,18 +33,37 @@ const NewChatUser = ({
       const newChat = await createChat(user._id);
       setAllChats([...allChats, newChat]);
       socket?.emit("new chat", newChat);
-      onClose();
+      handleClose();
     } catch (error) {
       console.error(error);
     }
-  }, [allChats, onClose, setAllChats, socket, user._id]);
+  }, [allChats, handleClose, setAllChats, socket, user._id]);
+
+  const doesChatExist = (
+    chats: Chat[],
+    receiver: UserRes,
+    currentUser: UserRes
+  ) =>
+    chats.find(
+      (chat) =>
+        chat.users.some(
+          (user) => user._id === receiver._id && user._id !== currentUser._id
+        ) && !chat.isGroupChat
+    );
 
   const handleClick = () => {
+    const existingChat = doesChatExist(allChats, user, currentUser!);
+    if (existingChat) {
+      setCurrentChat(existingChat);
+      handleClose();
+      return;
+    }
+
     if (isGroup) {
       handleSelect(user._id);
     } else {
       handleCreateChat();
-      onClose();
+      handleClose();
     }
   };
 

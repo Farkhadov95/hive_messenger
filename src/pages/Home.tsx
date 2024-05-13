@@ -7,8 +7,7 @@ import { useUserStore } from "../store/userStore";
 import { useSocketStore } from "../store/socketStore";
 import Chats from "./Chats";
 import ChatPlaceholder from "./ChatPlaceholder";
-
-const ENDPOINT = "http://localhost:3000";
+import { URL } from "../services/api";
 
 const Home = () => {
   const currentChat = useChatStore((state) => state.currentChat);
@@ -17,7 +16,7 @@ const Home = () => {
   const [socketInitialized, setSocketInitialized] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(ENDPOINT);
+    const newSocket = io(URL);
     newSocket.emit("setup", currentUser);
     setSocket(newSocket);
     setSocketInitialized(true);

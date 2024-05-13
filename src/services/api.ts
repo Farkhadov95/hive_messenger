@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:3000";
+export const URL = "https://hive-server.adaptable.app";
 
 export default axios.create({
   baseURL: URL,
