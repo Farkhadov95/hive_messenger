@@ -4,14 +4,14 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
-import ChatList from "../components/chat-list/ChatList";
 import Chat from "../pages/Chat";
+import Chats from "../pages/Chats";
 
 export const routes = {
   home: "/",
   login: "/login",
   signup: "/signup",
-  chatList: "/chatlist",
+  chats: "/chats",
   chat: "/chat/:id",
   notFound: "*",
 };
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: routes.chatList,
-        element: <ChatList />,
+        path: routes.chats,
+        element: <Chats />,
       },
       {
         path: routes.chat,
