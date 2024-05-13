@@ -1,6 +1,6 @@
 import { VStack, HStack, Button, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { routes } from "../router/routes";
+import { routes } from "../router/Routes";
 import { UserRes, NewUserForm } from "../types/user";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../services/user";
