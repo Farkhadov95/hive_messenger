@@ -4,6 +4,8 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
+import Layout from "./Layout";
+import Welcome from "../pages/Welcome";
 
 export const routes = {
   welcome: "/",
@@ -15,13 +17,38 @@ export const routes = {
   notFound: "*",
 };
 
+// const router = createBrowserRouter([
+//   {
+//     path: routes.login,
+//     element: <Login />,
+//   },
+//   {
+//     path: routes.signup,
+//     element: <SignUp />,
+//   },
+//   {
+//     element: <PrivateRoutes />,
+//     children: [
+//       {
+//         path: routes.home,
+//         element: <Home />,
+//       },
+//     ],
+//   },
+//   {
+//     path: routes.notFound,
+//     element: <NotFound />,
+//   },
+// ]);
+
 const router = createBrowserRouter([
   {
-    element: <PrivateRoutes />,
+    path: routes.welcome,
+    element: <Layout />,
     children: [
       {
-        path: routes.home,
-        element: <Home />,
+        index: true,
+        element: <Welcome />,
       },
       {
         path: routes.login,
@@ -31,11 +58,20 @@ const router = createBrowserRouter([
         path: routes.signup,
         element: <SignUp />,
       },
+      {
+        element: <PrivateRoutes />,
+        children: [
+          {
+            path: routes.home,
+            element: <Home />,
+          },
+        ],
+      },
+      {
+        path: routes.notFound,
+        element: <NotFound />,
+      },
     ],
-  },
-  {
-    path: routes.notFound,
-    element: <NotFound />,
   },
 ]);
 
