@@ -7,7 +7,7 @@ import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = {
   welcome: "/",
-  home: "/home",
+  home: "/",
   login: "/login",
   signup: "/signup",
   chats: "/chats",
@@ -16,24 +16,20 @@ export const routes = {
 };
 
 const router = createBrowserRouter([
-  //   {
-  //     path: routes.welcome,
-  //     element: <Welcome />,
-  //   },
-  {
-    path: routes.login,
-    element: <Login />,
-  },
-  {
-    path: routes.signup,
-    element: <SignUp />,
-  },
   {
     element: <PrivateRoutes />,
     children: [
       {
-        path: routes.welcome,
+        path: routes.home,
         element: <Home />,
+      },
+      {
+        path: routes.login,
+        element: <Login />,
+      },
+      {
+        path: routes.signup,
+        element: <SignUp />,
       },
     ],
   },
