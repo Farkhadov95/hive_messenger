@@ -6,9 +6,11 @@ import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
 import Chat from "../pages/Chat";
 import Chats from "../pages/Chats";
+import Welcome from "../pages/Welcome";
 
 export const routes = {
-  main: "/",
+  welcome: "/",
+  home: "/home",
   login: "/login",
   signup: "/signup",
   chats: "/chats",
@@ -21,7 +23,7 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        path: routes.main,
+        path: routes.home,
         element: <Home />,
       },
       {
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
         element: <Chat />,
       },
     ],
+  },
+  {
+    path: routes.welcome,
+    element: <Welcome />,
   },
   {
     path: routes.login,
