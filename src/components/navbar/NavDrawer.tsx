@@ -18,7 +18,7 @@ import {
 import { HiMenu } from "react-icons/hi";
 import { useUserStore } from "../../store/userStore";
 import { useNavigate } from "react-router-dom";
-import { routes } from "../../router/PublicRoutes";
+import { routes } from "../../router/Routes";
 import ColorModeSwitch from "../ColorModeSwitch";
 
 const NavDrawer = () => {

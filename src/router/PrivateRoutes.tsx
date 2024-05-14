@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
-import { routes } from "./PublicRoutes";
+import { routes } from "./Routes";
 
 const PrivateRoutes = () => {
   const currentUser = useUserStore((state) => state.currentUser);
