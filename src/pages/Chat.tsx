@@ -12,6 +12,7 @@ import { Chat as ChatType } from "../types/chat";
 import { MessageType } from "../types/message";
 import { useQuery } from "@tanstack/react-query";
 import { useSocketStore } from "../store/socketStore";
+import Loader from "../components/Loader";
 
 let selectedChatCompare: ChatType;
 
@@ -60,9 +61,7 @@ const Chat = () => {
     };
   });
 
-  return isPending ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <VStack
       padding={"0 10px 10px 10px"}
       display={"flex"}
@@ -72,34 +71,40 @@ const Chat = () => {
       height={"100vh"}
       bgColor={"gray.700"}
       boxShadow={"5px"}
+      position={"relative"}
     >
-      <ChatHeader />
-      <VStack
-        p={5}
-        display={"flex"}
-        flexGrow={1}
-        alignItems={"normal"}
-        bgColor={"orange.300"}
-        bgImage={bgPattern}
-        bgRepeat={"repeat"}
-        borderRadius={10}
-        overflow={"scroll"}
-        gap={1}
-        flexDirection={"column-reverse"}
-      >
-        {allMessages
-          .slice()
-          .reverse()
-          .map((message) =>
-            message.sender._id === currentUser?._id ? (
-              <UserMessage key={message._id} message={message} />
-            ) : (
-              <Message key={message._id} message={message} />
-            )
-          )}
-      </VStack>
-
-      <UserInput setAllMessages={setAllMessages} />
+      {isPending ? (
+        <Loader />
+      ) : (
+        <>
+          <ChatHeader />
+          <VStack
+            p={5}
+            display={"flex"}
+            flexGrow={1}
+            alignItems={"normal"}
+            bgColor={"orange.300"}
+            bgImage={bgPattern}
+            bgRepeat={"repeat"}
+            borderRadius={10}
+            overflow={"scroll"}
+            gap={1}
+            flexDirection={"column-reverse"}
+          >
+            {allMessages
+              .slice()
+              .reverse()
+              .map((message) =>
+                message.sender._id === currentUser?._id ? (
+                  <UserMessage key={message._id} message={message} />
+                ) : (
+                  <Message key={message._id} message={message} />
+                )
+              )}
+          </VStack>
+          <UserInput setAllMessages={setAllMessages} />
+        </>
+      )}
     </VStack>
   );
 };

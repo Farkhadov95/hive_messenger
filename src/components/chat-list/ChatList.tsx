@@ -6,6 +6,7 @@ import { useChatStore } from "../../store/chatStore";
 import { useQuery } from "@tanstack/react-query";
 import { useSocketStore } from "../../store/socketStore";
 import { replaceChat } from "./utils";
+import Loader from "../Loader";
 
 const ChatList = () => {
   const allChats = useChatStore((state) => state.allChats);
@@ -54,9 +55,10 @@ const ChatList = () => {
       bgColor={"gray.200"}
       padding={2}
       overflow={"scroll"}
+      position={"relative"}
     >
       {isFetching ? (
-        <Text>Loading...</Text>
+        <Loader />
       ) : allChats?.length === 0 ? (
         <Text
           fontWeight={"border"}
