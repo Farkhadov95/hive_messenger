@@ -9,7 +9,7 @@ const ChatPlaceholder = () => {
       display={"flex"}
       flexGrow={1}
       alignItems={"normal"}
-      height={"100vh"}
+      height={"100%"}
       bgColor={"gray.700"}
       boxShadow={"5px"}
     >

@@ -7,7 +7,7 @@ const Chats = () => {
     <VStack
       minWidth={{ base: "100%", md: "40%" }}
       alignItems={"normal"}
-      height={"100vh"}
+      height={"100%"}
       gap={0}
     >
       <Navbar />

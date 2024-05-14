@@ -11,7 +11,7 @@ export const routes = {
   login: "/login",
   signup: "/signup",
   chats: "/chats",
-  chat: "/chat/:id",
+  chat: "/chat",
   notFound: "*",
 };
 

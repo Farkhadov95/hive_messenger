@@ -1,4 +1,4 @@
-import { HStack, Show, Box } from "@chakra-ui/react";
+import { HStack, Spinner, VStack } from "@chakra-ui/react";
 import Chat from "./Chat";
 import { useChatStore } from "../store/chatStore";
 import { useEffect, useState } from "react";
@@ -26,12 +26,26 @@ const Home = () => {
   }, [currentUser, setSocket]);
 
   return socketInitialized ? (
-    <HStack alignItems={"normal"} maxWidth={"1024px"} margin={"auto"} gap={0}>
+    <HStack
+      alignItems={"normal"}
+      maxWidth={"1024px"}
+      height={"100svh"}
+      margin={"auto"}
+      gap={0}
+    >
       <Chats />
-      <Show above="md">{currentChat ? <Chat /> : <ChatPlaceholder />}</Show>
+      {currentChat ? <Chat /> : <ChatPlaceholder />}
     </HStack>
   ) : (
-    <Box>Loading...</Box>
+    <VStack height={"100svh"} justifyContent={"center"} alignItems={"center"}>
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="orange.500"
+        size="xl"
+      />
+    </VStack>
   );
 };
 

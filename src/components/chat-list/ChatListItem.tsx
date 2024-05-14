@@ -28,9 +28,6 @@ const ChatListItem = ({ chat }: Props) => {
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
 
-  // const isMdScreen = useMediaQuery("(min-width: 1024 )");
-  // const navigate = useNavigate();
-
   const handleDelete = async () => {
     try {
       const res = await deleteChat(chat._id);
