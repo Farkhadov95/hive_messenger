@@ -8,7 +8,7 @@ import Welcome from "../pages/Welcome";
 
 export const routes = {
   welcome: "/",
-  home: "/home",
+  home: "home",
   login: "/login",
   signup: "/signup",
   chats: "/chats",
@@ -30,11 +30,10 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: routes.home,
     element: <PrivateRoutes />,
     children: [
       {
-        index: true,
+        path: routes.home,
         element: <Home />,
       },
     ],
