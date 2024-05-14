@@ -1,10 +1,11 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { routes } from "./Routes";
+import Home from "../pages/Home";
 
 const PrivateRoutes = () => {
   const token = sessionStorage.getItem("X-Auth-Token");
   console.log(token);
-  return token ? <Outlet /> : <Navigate to={`${routes.login}`} />;
+  return token ? <Home /> : <Navigate to={`${routes.login}`} />;
 };
 
 export default PrivateRoutes;
