@@ -5,6 +5,7 @@ import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
 import Welcome from "../pages/Welcome";
+import Layout from "./Layout";
 
 export const routes = {
   welcome: "/",
@@ -19,29 +20,31 @@ export const routes = {
 const router = createBrowserRouter([
   {
     path: routes.welcome,
-    element: <Welcome />,
-  },
-  {
-    path: routes.login,
-    element: <Login />,
-  },
-  {
-    path: routes.signup,
-    element: <SignUp />,
-  },
-  {
-    path: routes.home,
-    element: <PrivateRoutes />,
+    element: <Layout />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Welcome />,
+      },
+      {
+        path: routes.login,
+        element: <Login />,
+      },
+      {
+        path: routes.signup,
+        element: <SignUp />,
       },
     ],
   },
   {
-    path: routes.notFound,
-    element: <NotFound />,
+    element: <PrivateRoutes />,
+    children: [
+      {
+        path: routes.home,
+        element: <Home />,
+      },
+    ],
   },
 ]);
 

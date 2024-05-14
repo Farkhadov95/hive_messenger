@@ -15,6 +15,8 @@ const Home = () => {
   const setSocket = useSocketStore((state) => state.setSocket);
   const [socketInitialized, setSocketInitialized] = useState(false);
 
+  console.log("Home page is open");
+
   useEffect(() => {
     const newSocket = io(URL);
     newSocket.emit("setup", currentUser);
