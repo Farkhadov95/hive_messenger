@@ -15,8 +15,6 @@ const Home = () => {
   const setSocket = useSocketStore((state) => state.setSocket);
   const [socketInitialized, setSocketInitialized] = useState(false);
 
-  console.log("Home page is open");
-
   useEffect(() => {
     const newSocket = io(URL);
     newSocket.emit("setup", currentUser);
@@ -33,9 +31,7 @@ const Home = () => {
       <Show above="md">{currentChat ? <Chat /> : <ChatPlaceholder />}</Show>
     </HStack>
   ) : (
-    <Box height={"100vh"} bgColor={"red"}>
-      Loading...
-    </Box>
+    <Box>Loading...</Box>
   );
 };
 

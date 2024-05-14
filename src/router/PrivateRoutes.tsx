@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 
 const PrivateRoutes = () => {
   const token = sessionStorage.getItem("X-Auth-Token");
-  console.log(token);
   return token ? <Home /> : <Navigate to={`${routes.login}`} />;
 };
 
