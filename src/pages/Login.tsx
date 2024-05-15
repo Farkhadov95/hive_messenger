@@ -8,11 +8,16 @@ import { loginUser } from "../services/user";
 import { useForm } from "react-hook-form";
 import { UserRes, User } from "../types/user";
 import { useUserStore } from "../store/userStore";
+import { useErrorStore } from "../store/errorStore";
+import UserError from "../components/UserError";
+import useErrorHandler from "../hooks/useError";
 
 const Login = () => {
   const form = useForm<User>();
   const { register, handleSubmit, formState } = form;
   const setUser = useUserStore((state) => state.setCurrentUser);
+  const userError = useErrorStore((state) => state.userError);
+  const { handleUserFail } = useErrorHandler();
   const { errors } = formState;
 
   const navigate = useNavigate();
@@ -38,12 +43,13 @@ const Login = () => {
         );
       })
       .catch((err) => {
-        console.log(err.message);
+        handleUserFail(err.respo);
       });
   };
 
   return (
-    <VStack marginTop={"10vh"}>
+    <VStack marginTop={"10svh"} position={"relative"}>
+      {userError && <UserError error={userError} />}
       <Logo />
       <Box
         as="form"

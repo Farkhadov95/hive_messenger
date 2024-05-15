@@ -11,6 +11,9 @@ import ConfPasswordInput from "../components/signup/ConfPasswordInput";
 import Logo from "../components/Logo";
 import { useState } from "react";
 import { useUserStore } from "../store/userStore";
+import UserError from "../components/UserError";
+import { useErrorStore } from "../store/errorStore";
+import useErrorHandler from "../hooks/useError";
 
 const SignUp = () => {
   const form = useForm<NewUserForm>();
@@ -18,8 +21,10 @@ const SignUp = () => {
   const { errors } = formState;
   const navigate = useNavigate();
   const [passwordValue, setPasswordValue] = useState<string>();
+  const { handleUserFail } = useErrorHandler();
 
   const setUser = useUserStore((state) => state.setCurrentUser);
+  const userError = useErrorStore((state) => state.userError);
 
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
@@ -47,12 +52,15 @@ const SignUp = () => {
           res.headers["x-auth-token"]
         );
       })
-
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        console.log(err.message);
+        handleUserFail(err.message);
+      });
   };
 
   return (
     <VStack marginTop={"10vh"}>
+      {userError && <UserError error={userError} />}
       <Logo />
       <Box
         as="form"

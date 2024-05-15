@@ -52,16 +52,15 @@ const NewChatUser = ({
     );
 
   const handleClick = () => {
-    const existingChat = doesChatExist(allChats, user, currentUser!);
-    if (existingChat) {
-      setCurrentChat(existingChat);
-      handleClose();
-      return;
-    }
-
     if (isGroup) {
       handleSelect(user._id);
     } else {
+      const existingChat = doesChatExist(allChats, user, currentUser!);
+      if (existingChat) {
+        setCurrentChat(existingChat);
+        handleClose();
+        return;
+      }
       handleCreateChat();
       handleClose();
     }
