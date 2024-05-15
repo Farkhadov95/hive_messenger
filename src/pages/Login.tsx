@@ -43,7 +43,7 @@ const Login = () => {
         );
       })
       .catch((err) => {
-        handleUserFail(err.respo);
+        handleUserFail(err.message);
       });
   };
 

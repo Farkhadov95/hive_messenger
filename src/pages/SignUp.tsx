@@ -53,7 +53,6 @@ const SignUp = () => {
         );
       })
       .catch((err) => {
-        console.log(err.message);
         handleUserFail(err.message);
       });
   };
