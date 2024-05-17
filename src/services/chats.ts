@@ -2,6 +2,8 @@ import api, { getHeaders } from "./api";
 
 enum ChatsRoutes {
   chats = "/chat/",
+  chatRemoveUser = "/chat/remove/",
+  chatAddUser = "/chat/add/",
   group = "/chat/group/",
   messages = "/message/",
   rename = "/chat/rename/",
@@ -86,6 +88,34 @@ export const deleteChat = async (chatID: string) => {
     const res = await api.delete(`${ChatsRoutes.chats}${chatID}`, {
       headers: getHeaders(),
     });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};
+
+export const addUserToGroup = async (chatID: string, userID: string) => {
+  const data = { userID };
+  try {
+    const res = await api.patch(`${ChatsRoutes.chatAddUser}${chatID}`, data, {
+      headers: getHeaders(),
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("Network Error: " + error);
+  }
+};
+
+export const deleteUserFromGroup = async (chatID: string, userID: string) => {
+  const data = { userID };
+  try {
+    const res = await api.patch(
+      `${ChatsRoutes.chatRemoveUser}${chatID}`,
+      data,
+      {
+        headers: getHeaders(),
+      }
+    );
     return res.data;
   } catch (error) {
     throw new Error("Network Error: " + error);

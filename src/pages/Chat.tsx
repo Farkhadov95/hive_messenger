@@ -20,7 +20,6 @@ const Chat = () => {
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
   const socket = useSocketStore((state) => state.socket);
-
   const [allMessages, setAllMessages] = useState([] as MessageType[]);
 
   const handleNewMessage = (newMessageReceived: MessageType) => {
