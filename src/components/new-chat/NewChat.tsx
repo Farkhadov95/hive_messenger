@@ -21,7 +21,6 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import { getAllUsers } from "../../services/user";
 import NewChatUser from "./NewChatUser";
-import { UserRes } from "../../types/user";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useUserStore } from "../../store/userStore";
@@ -35,7 +34,8 @@ const NewChat = () => {
   const currentUser = useUserStore((state) => state.currentUser);
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
-  const [allUsers, setAllUsers] = useState([] as UserRes[]);
+  const allUsers = useChatStore((state) => state.allUsers);
+  const setAllUsers = useChatStore((state) => state.setAllUsers);
   const [selectedUserIDs, setSelectedUserIDs] = useState<string[]>([]);
   const [isGroup, setIsGroup] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -77,7 +77,7 @@ const NewChat = () => {
 
   useEffect(() => {
     setAllUsers(users);
-  }, [users]);
+  }, [setAllUsers, users]);
 
   return !isFetching ? (
     allUsers ? (
