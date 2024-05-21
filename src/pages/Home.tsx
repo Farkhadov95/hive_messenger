@@ -1,14 +1,14 @@
 import { HStack, Spinner, useMediaQuery, VStack } from "@chakra-ui/react";
-import Chat from "./Chat";
-import { useChatStore } from "../store/chatStore";
-import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useChatStore } from "../store/chatStore";
 import { useUserStore } from "../store/userStore";
 import { useSocketStore } from "../store/socketStore";
-import Chats from "./Chats";
 import ChatPlaceholder from "./ChatPlaceholder";
 import { URL } from "../services/api";
-import { Outlet } from "react-router-dom";
+import Chats from "./Chats";
+import Chat from "./Chat";
 
 const Home = () => {
   const isMobile = useMediaQuery("(max-width: 767px)");
