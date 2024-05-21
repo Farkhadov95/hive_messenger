@@ -1,10 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { routes } from "./Routes";
+import React from "react";
 
-const PrivateRoutes = () => {
+interface PrivateRouteProps {
+  element: React.ReactNode;
+}
+
+const PrivateRoutes: React.FC<PrivateRouteProps> = ({ element }) => {
   const token = sessionStorage.getItem("X-Auth-Token");
   if (!token) return <Navigate to={`${routes.login}`} />;
-  return <Outlet />;
+  return element;
 };
 
 export default PrivateRoutes;

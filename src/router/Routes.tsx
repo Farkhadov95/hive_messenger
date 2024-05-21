@@ -3,26 +3,21 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import NotFound from "../pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
-import Welcome from "../pages/Welcome";
 import Chat from "../pages/Chat";
 import Chats from "../pages/Chats";
 import Home from "../pages/Home";
 
 export const routes = {
-  welcome: "/",
-  home: "/home",
-  chats: "/home/chats",
-  chat: "/home/chat",
+  // welcome: "/",
+  home: "/",
+  chats: "chats",
+  chat: "chat",
   login: "/login",
   signup: "/signup",
   notFound: "*",
 };
 
 const router = createBrowserRouter([
-  {
-    path: routes.welcome,
-    element: <Welcome />,
-  },
   {
     path: routes.login,
     element: <Login />,
@@ -33,20 +28,15 @@ const router = createBrowserRouter([
   },
   {
     path: routes.home,
-    element: <PrivateRoutes />,
+    element: <PrivateRoutes element={<Home />} />,
     children: [
       {
-        element: <Home />,
-        children: [
-          {
-            path: "",
-            element: <Chats />,
-          },
-          {
-            path: "",
-            element: <Chat />,
-          },
-        ],
+        index: true,
+        element: <PrivateRoutes element={<Chats />} />,
+      },
+      {
+        path: routes.chat,
+        element: <PrivateRoutes element={<Chat />} />,
       },
     ],
   },
