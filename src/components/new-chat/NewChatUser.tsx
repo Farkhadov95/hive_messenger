@@ -6,6 +6,8 @@ import { useChatStore } from "../../store/chatStore";
 import { useSocketStore } from "../../store/socketStore";
 import { Chat } from "../../types/chat";
 import { useUserStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../router/Routes";
 
 type Props = {
   user: UserRes;
@@ -27,6 +29,7 @@ const NewChatUser = ({
   const setAllChats = useChatStore((state) => state.setAllChats);
   const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   const socket = useSocketStore((state) => state.socket);
+  const navigate = useNavigate();
 
   const handleCreateChat = useCallback(async () => {
     try {
@@ -58,6 +61,7 @@ const NewChatUser = ({
       const existingChat = doesChatExist(allChats, user, currentUser!);
       if (existingChat) {
         setCurrentChat(existingChat);
+        navigate(routes.chat);
         handleClose();
         return;
       }

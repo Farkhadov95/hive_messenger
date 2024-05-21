@@ -17,6 +17,8 @@ import { deleteChat } from "../../services/chats";
 import { useSocketStore } from "../../store/socketStore";
 import ChatName from "./ChatName";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../router/Routes";
 
 type Props = {
   chat: Chat;
@@ -27,6 +29,7 @@ const ChatListItem = ({ chat }: Props) => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     try {
@@ -49,6 +52,7 @@ const ChatListItem = ({ chat }: Props) => {
       borderRadius={5}
       onClick={() => {
         setCurrentChat(chat);
+        navigate(routes.chat);
       }}
     >
       <HStack>

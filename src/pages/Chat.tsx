@@ -67,7 +67,7 @@ const Chat = () => {
       flexGrow={1}
       alignItems={"normal"}
       gap={2}
-      height={"100%"}
+      height={"100svh"}
       bgColor={"gray.700"}
       boxShadow={"5px"}
       position={"relative"}
