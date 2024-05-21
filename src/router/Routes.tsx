@@ -36,16 +36,18 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        index: true,
+        path: routes.home,
         element: <Home />,
-      },
-      {
-        path: routes.chats,
-        element: <Chats />,
-      },
-      {
-        path: routes.chat,
-        element: <Chat />,
+        children: [
+          {
+            path: routes.chats,
+            element: <Chats />,
+          },
+          {
+            path: routes.chat,
+            element: <Chat />,
+          },
+        ],
       },
     ],
   },
