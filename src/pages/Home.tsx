@@ -11,11 +11,13 @@ import Chats from "./Chats";
 import Chat from "./Chat";
 
 const Home = () => {
-  const isMobile = useMediaQuery("(max-width: 767px)");
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
   const setSocket = useSocketStore((state) => state.setSocket);
   const [socketInitialized, setSocketInitialized] = useState(false);
+
+  console.log(isMobile);
 
   useEffect(() => {
     const newSocket = io(URL);
@@ -28,7 +30,7 @@ const Home = () => {
   }, [currentUser, setSocket]);
 
   return socketInitialized ? (
-    isMobile[0] ? (
+    isMobile && socketInitialized ? (
       <Outlet />
     ) : (
       <HStack
