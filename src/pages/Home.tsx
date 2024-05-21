@@ -1,6 +1,5 @@
 import { HStack, Spinner, useMediaQuery, VStack } from "@chakra-ui/react";
 import { io } from "socket.io-client";
-import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useChatStore } from "../store/chatStore";
 import { useUserStore } from "../store/userStore";
@@ -33,7 +32,7 @@ const Home = () => {
 
   return socketInitialized ? (
     isMobile && socketInitialized ? (
-      <Outlet />
+      <Chats />
     ) : (
       <HStack
         alignItems={"normal"}
