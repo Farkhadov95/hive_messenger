@@ -18,6 +18,9 @@ const HeaderUsers = () => {
           ,
         </Text>
       }
+      flexWrap={"wrap"}
+      lineHeight={"0.8rem"}
+      fontSize={"0.8rem"}
     >
       {allUsers?.slice(0, 3).map((user) => (
         <Text textColor={"gray"} key={user._id}>
