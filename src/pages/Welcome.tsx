@@ -17,7 +17,7 @@ const Welcome = () => {
       <Heading mb={5}>Welcome to Hive</Heading>
       <Button
         rightIcon={<IoIosArrowForward />}
-        onClick={() => navigate(routes.chats)}
+        onClick={() => navigate(routes.home)}
       >
         Start
       </Button>
