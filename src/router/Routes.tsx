@@ -32,7 +32,6 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: routes.home,
     element: <PrivateRoutes />,
     children: [
       {
