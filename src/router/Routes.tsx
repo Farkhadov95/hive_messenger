@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <PrivateRoutes />,
     children: [
       {
-        path: routes.home,
+        path: "",
         element: <Home />,
         children: [
           {
