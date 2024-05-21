@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         element: <Home />,
         children: [
           {
-            path: "",
+            index: true,
             element: <Chats />,
           },
           {
