@@ -1,11 +1,4 @@
-import {
-  Menu,
-  MenuButton,
-  IconButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { Menu, MenuButton, IconButton, MenuList } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import ChatUsers from "./ChatUsers";
 
@@ -25,16 +18,6 @@ const HeaderMenu = () => {
 
       <MenuList color={"white"}>
         <ChatUsers />
-        <MenuItem
-          icon={<RiDeleteBin6Line />}
-          bgColor={"inherit"}
-          fontWeight={"bolder"}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          Delete
-        </MenuItem>
       </MenuList>
     </Menu>
   );

@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { useCallback } from "react";
 import { deleteUserFromGroup } from "../../services/chats";
 import { useSocketStore } from "../../store/socketStore";
+import { replaceChat } from "../chat-list/utils";
 
 interface Props {
   handleClose: () => void;
@@ -13,6 +14,9 @@ interface Props {
 const ChatUsersList = ({ handleClose }: Props) => {
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
+  const allChats = useChatStore((state) => state.allChats);
+  const setCurrentChat = useChatStore((state) => state.setCurrentChat);
+  const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
 
   const handleDeleteUser = useCallback(
@@ -20,12 +24,15 @@ const ChatUsersList = ({ handleClose }: Props) => {
       try {
         const newChat = await deleteUserFromGroup(currentChat!._id, userID);
         socket?.emit("user deleted", newChat);
+        const newChats = replaceChat(allChats, newChat);
+        setAllChats(newChats);
+        setCurrentChat(newChat);
         handleClose();
       } catch (error) {
         console.error(error);
       }
     },
-    [currentChat, handleClose, socket]
+    [allChats, currentChat, handleClose, setAllChats, setCurrentChat, socket]
   );
 
   return (

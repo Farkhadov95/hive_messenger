@@ -44,6 +44,13 @@ const ChatList = () => {
       socket?.on("new group chat response", (chat) => {
         setAllChats([...allChats, chat]);
       });
+
+      socket?.on("user deleted response", (chat) => {
+        console.log("User deleted response");
+        const newChats = replaceChat(allChats, chat);
+        setAllChats(newChats);
+        setCurrentChat(chat);
+      });
     }
   }, [socket, setCurrentChat, setAllChats, allChats]);
 
