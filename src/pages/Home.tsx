@@ -8,7 +8,6 @@ import { useSocketStore } from "../store/socketStore";
 import Chats from "./Chats";
 import ChatPlaceholder from "./ChatPlaceholder";
 import { URL } from "../services/api";
-import { Outlet } from "react-router-dom";
 
 const Home = () => {
   const isMobile = useMediaQuery("(max-width: 767px)");
@@ -29,7 +28,7 @@ const Home = () => {
 
   return socketInitialized ? (
     isMobile[0] ? (
-      <Outlet />
+      <Chats />
     ) : (
       <HStack
         alignItems={"normal"}

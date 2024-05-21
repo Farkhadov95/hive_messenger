@@ -6,6 +6,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import Welcome from "../pages/Welcome";
 import Chat from "../pages/Chat";
 import Chats from "../pages/Chats";
+import Home from "../pages/Home";
 
 export const routes = {
   welcome: "/",
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     path: routes.home,
     element: <PrivateRoutes />,
     children: [
+      {
+        path: routes.home,
+        element: <Home />,
+      },
       {
         path: routes.chats,
         element: <Chats />,
