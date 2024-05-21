@@ -29,6 +29,8 @@ const Home = () => {
     };
   }, [currentUser, setSocket]);
 
+  console.log("socketInitialized", socketInitialized);
+
   return socketInitialized ? (
     isMobile && socketInitialized ? (
       <Outlet />
