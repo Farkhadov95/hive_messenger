@@ -25,7 +25,7 @@ const Login = () => {
   const handleSuccess = (userData: UserRes, token: string) => {
     sessionStorage.setItem("X-Auth-Token", token);
     setUser(userData);
-    navigate(routes.chats);
+    navigate(routes.home);
   };
 
   const onSubmit = (data: User) => {
