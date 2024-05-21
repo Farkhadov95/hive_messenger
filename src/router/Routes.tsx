@@ -32,15 +32,14 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: routes.home,
     element: <PrivateRoutes />,
     children: [
       {
-        path: "",
+        path: routes.home,
         element: <Home />,
         children: [
           {
-            index: true,
+            path: "",
             element: <Chats />,
           },
           {
