@@ -1,4 +1,4 @@
-import { HStack, Spinner, VStack } from "@chakra-ui/react";
+import { HStack, Spinner, useMediaQuery, VStack } from "@chakra-ui/react";
 import Chat from "./Chat";
 import { useChatStore } from "../store/chatStore";
 import { useEffect, useState } from "react";
@@ -8,8 +8,10 @@ import { useSocketStore } from "../store/socketStore";
 import Chats from "./Chats";
 import ChatPlaceholder from "./ChatPlaceholder";
 import { URL } from "../services/api";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
+  const isMobile = useMediaQuery("(max-width: 767px)");
   const currentChat = useChatStore((state) => state.currentChat);
   const currentUser = useUserStore((state) => state.currentUser);
   const setSocket = useSocketStore((state) => state.setSocket);
@@ -26,16 +28,20 @@ const Home = () => {
   }, [currentUser, setSocket]);
 
   return socketInitialized ? (
-    <HStack
-      alignItems={"normal"}
-      maxWidth={"1024px"}
-      height={"100svh"}
-      margin={"auto"}
-      gap={0}
-    >
-      <Chats />
-      {currentChat ? <Chat /> : <ChatPlaceholder />}
-    </HStack>
+    isMobile[0] ? (
+      <Outlet />
+    ) : (
+      <HStack
+        alignItems={"normal"}
+        maxWidth={"1024px"}
+        height={"100svh"}
+        margin={"auto"}
+        gap={0}
+      >
+        <Chats />
+        {currentChat ? <Chat /> : <ChatPlaceholder />}
+      </HStack>
+    )
   ) : (
     <VStack height={"100svh"} justifyContent={"center"} alignItems={"center"}>
       <Spinner
