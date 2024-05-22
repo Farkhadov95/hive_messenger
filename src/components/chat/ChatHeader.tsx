@@ -17,6 +17,8 @@ const ChatHeader = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
   const navigate = useNavigate();
 
+  console.log(currentChat?.users);
+
   return (
     <HStack
       padding={2}

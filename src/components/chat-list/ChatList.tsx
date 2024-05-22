@@ -27,6 +27,7 @@ const ChatList = () => {
 
   useEffect(() => {
     if (socket?.connected) {
+      console.log("socket", socket?.connected);
       socket?.on("chat deleted response", (resChat) => {
         setAllChats(allChats.filter((chat) => chat._id !== resChat._id));
         setCurrentChat(null);
@@ -51,6 +52,14 @@ const ChatList = () => {
         setAllChats(newChats);
         setCurrentChat(chat);
       });
+
+      return () => {
+        socket?.off("chat deleted response");
+        socket?.off("new chat response");
+        socket?.off("new chat name response");
+        socket?.off("new group chat response");
+        socket?.off("user deleted response");
+      };
     }
   }, [socket, setCurrentChat, setAllChats, allChats]);
 

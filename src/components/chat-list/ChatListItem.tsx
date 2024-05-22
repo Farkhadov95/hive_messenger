@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdGroups } from "react-icons/md";
 import { Chat } from "../../types/chat";
 import { useChatStore } from "../../store/chatStore";
 import { deleteChat } from "../../services/chats";
@@ -62,8 +63,14 @@ const ChatListItem = ({ chat }: Props) => {
       <HStack>
         <Avatar />
         <Box lineHeight={"1.5em"}>
-          <Text fontWeight={"bold"}>{chat.chatName}</Text>
-          <Text textColor={"gray"} fontSize={"sm"}>
+          <HStack gap={5}>
+            <Text fontWeight={"bold"}>{chat.chatName}</Text>
+            <HStack fontWeight={"bold"} gap={1}>
+              <MdGroups />
+              <Text fontSize={"xs"}>{chat.users.length}</Text>
+            </HStack>
+          </HStack>
+          <Text textColor={"gray"} fontSize={"xs"}>
             Updated: {moment(chat.updatedAt).format("MMMM Do YYYY")}
           </Text>
         </Box>
