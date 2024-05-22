@@ -1,4 +1,4 @@
-import { Text, VStack } from "@chakra-ui/react";
+import { Text, useMediaQuery, VStack } from "@chakra-ui/react";
 import { UserRes } from "../../types/user";
 import { useCallback } from "react";
 import { createChat } from "../../services/chats";
@@ -29,6 +29,7 @@ const NewChatUser = ({
   const setAllChats = useChatStore((state) => state.setAllChats);
   const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   const socket = useSocketStore((state) => state.socket);
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
   const navigate = useNavigate();
 
   const handleCreateChat = useCallback(async () => {
@@ -61,7 +62,9 @@ const NewChatUser = ({
       const existingChat = doesChatExist(allChats, user, currentUser!);
       if (existingChat) {
         setCurrentChat(existingChat);
-        navigate(routes.chat);
+        if (isMobile) {
+          navigate(routes.chat);
+        }
         handleClose();
         return;
       }

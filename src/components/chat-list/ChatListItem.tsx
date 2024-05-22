@@ -8,6 +8,7 @@ import {
   MenuItem,
   MenuList,
   IconButton,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -29,6 +30,7 @@ const ChatListItem = ({ chat }: Props) => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
   const navigate = useNavigate();
 
   const handleDelete = async () => {
@@ -52,7 +54,9 @@ const ChatListItem = ({ chat }: Props) => {
       borderRadius={5}
       onClick={() => {
         setCurrentChat(chat);
-        navigate(`/${routes.chat}`);
+        if (isMobile) {
+          navigate(`/${routes.chat}`);
+        }
       }}
     >
       <HStack>
