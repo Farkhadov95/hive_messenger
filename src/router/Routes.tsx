@@ -8,7 +8,6 @@ import Chats from "../pages/Chats";
 import Home from "../pages/Home";
 
 export const routes = {
-  // welcome: "/",
   home: "/",
   chats: "chats",
   chat: "chat",

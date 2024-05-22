@@ -8,6 +8,7 @@ import ChatPlaceholder from "./ChatPlaceholder";
 import { URL } from "../services/api";
 import Chats from "./Chats";
 import Chat from "./Chat";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -15,8 +16,6 @@ const Home = () => {
   const currentUser = useUserStore((state) => state.currentUser);
   const setSocket = useSocketStore((state) => state.setSocket);
   const [socketInitialized, setSocketInitialized] = useState(false);
-
-  console.log(isMobile);
 
   useEffect(() => {
     const newSocket = io(URL);
@@ -28,11 +27,11 @@ const Home = () => {
     };
   }, [currentUser, setSocket]);
 
-  console.log("socketInitialized", socketInitialized);
+  console.log(window.location.pathname);
 
   return socketInitialized ? (
-    isMobile && socketInitialized ? (
-      <Chats />
+    isMobile ? (
+      <Outlet /> // should be outlet or element here?
     ) : (
       <HStack
         alignItems={"normal"}
