@@ -26,8 +26,6 @@ const Home = () => {
     };
   }, [currentUser, setSocket]);
 
-  console.log(window.location.pathname);
-
   return socketInitialized ? (
     isMobile ? (
       location.pathname.startsWith("/chat") ? (

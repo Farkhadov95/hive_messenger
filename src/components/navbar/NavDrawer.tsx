@@ -14,12 +14,13 @@ import {
   IconButton,
   Heading,
   Box,
+  Avatar,
+  HStack,
 } from "@chakra-ui/react";
 import { HiMenu } from "react-icons/hi";
 import { useUserStore } from "../../store/userStore";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../router/Routes";
-import ColorModeSwitch from "../ColorModeSwitch";
 
 const NavDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,34 +61,40 @@ const NavDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>
             <Heading as={"h2"} fontSize={"1.5rem"}>
-              {currentUser?.username}
+              <HStack gap={3}>
+                <Avatar />
+                <Text>{currentUser?.username}</Text>
+              </HStack>
             </Heading>
-            <Box mt={2}>
-              <Text fontSize={"0.8rem"} color={"gray.400"}>
-                Email: {currentUser?.email}
-              </Text>
-              <Text fontSize={"0.8rem"} color={"gray.400"}>
-                ID: {currentUser?._id}
-              </Text>
+            <Box mt={5}>
+              <HStack>
+                <Text fontSize={"0.8rem"} color={"gray.400"}>
+                  Email:
+                </Text>
+                <Text fontSize={"0.8rem"} color={"white"}>
+                  {currentUser?.email}
+                </Text>
+              </HStack>
+              <HStack>
+                <Text fontSize={"0.8rem"} color={"gray.400"}>
+                  User ID:
+                </Text>
+                <Text fontSize={"0.8rem"} color={"white"}>
+                  {currentUser?._id}
+                </Text>
+              </HStack>
             </Box>
           </DrawerHeader>
 
           <DrawerBody></DrawerBody>
 
-          <DrawerFooter justifyContent={"space-between"}>
-            <ColorModeSwitch />
-            <Box>
-              <Button variant="outline" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button
-                variant="outline"
-                colorScheme="red"
-                onClick={handleLogout}
-              >
-                Log out
-              </Button>
-            </Box>
+          <DrawerFooter>
+            <Button variant="outline" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="outline" colorScheme="red" onClick={handleLogout}>
+              Log out
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
