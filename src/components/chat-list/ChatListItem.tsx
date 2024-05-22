@@ -52,7 +52,7 @@ const ChatListItem = ({ chat }: Props) => {
       borderRadius={5}
       onClick={() => {
         setCurrentChat(chat);
-        navigate(routes.chat);
+        navigate(`/${routes.chat}`);
       }}
     >
       <HStack>
