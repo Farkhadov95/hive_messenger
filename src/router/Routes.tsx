@@ -28,16 +28,14 @@ const router = createBrowserRouter([
   {
     path: routes.home,
     element: <PrivateRoutes element={<Home />} />,
-    children: [
-      {
-        index: true,
-        element: <PrivateRoutes element={<Chats />} />,
-      },
-      {
-        path: routes.chat,
-        element: <PrivateRoutes element={<Chat />} />,
-      },
-    ],
+  },
+  {
+    path: routes.chats,
+    element: <PrivateRoutes element={<Chats />} />,
+  },
+  {
+    path: routes.chat,
+    element: <PrivateRoutes element={<Chat />} />,
   },
   {
     path: routes.notFound,
