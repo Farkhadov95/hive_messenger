@@ -8,7 +8,6 @@ import ChatPlaceholder from "./ChatPlaceholder";
 import { URL } from "../services/api";
 import Chats from "./Chats";
 import Chat from "./Chat";
-import { Outlet } from "react-router-dom";
 
 const Home = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -31,7 +30,11 @@ const Home = () => {
 
   return socketInitialized ? (
     isMobile ? (
-      <Outlet /> // should be outlet or element here?
+      location.pathname.startsWith("/chat") ? (
+        <Chat />
+      ) : (
+        <Chats />
+      )
     ) : (
       <HStack
         alignItems={"normal"}
