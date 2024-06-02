@@ -94,8 +94,8 @@ export const deleteChat = async (chatID: string) => {
   }
 };
 
-export const addUserToGroup = async (chatID: string, userID: string) => {
-  const data = { userID };
+export const addUserToGroup = async (chatID: string, userIDs: string[]) => {
+  const data = { userIDs };
   try {
     const res = await api.patch(`${ChatsRoutes.chatAddUser}${chatID}`, data, {
       headers: getHeaders(),

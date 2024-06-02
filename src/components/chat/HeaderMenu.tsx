@@ -1,6 +1,7 @@
 import { Menu, MenuButton, IconButton, MenuList } from "@chakra-ui/react";
 import { SlOptionsVertical } from "react-icons/sl";
 import ChatUsers from "./ChatUsers";
+import ChatUsersAdd from "./ChatUsersAdd";
 
 const HeaderMenu = () => {
   return (
@@ -18,6 +19,7 @@ const HeaderMenu = () => {
 
       <MenuList color={"white"}>
         <ChatUsers />
+        <ChatUsersAdd />
       </MenuList>
     </Menu>
   );
