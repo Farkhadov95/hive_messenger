@@ -26,7 +26,7 @@ const ChatUsersList = ({ handleClose }: Props) => {
         socket?.emit("user deleted", newChat);
         const newChats = replaceChat(allChats, newChat);
         setAllChats(newChats);
-        setCurrentChat(newChat);
+        currentChat?._id === newChat._id && setCurrentChat(newChat);
         handleClose();
       } catch (error) {
         console.error(error);

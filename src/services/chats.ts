@@ -107,7 +107,7 @@ export const addUserToGroup = async (chatID: string, userIDs: string[]) => {
 };
 
 export const deleteUserFromGroup = async (chatID: string, userID: string) => {
-  const data = { userID };
+  const data = { userIDs: [userID] };
   try {
     const res = await api.patch(
       `${ChatsRoutes.chatRemoveUser}${chatID}`,

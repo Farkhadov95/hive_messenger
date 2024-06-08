@@ -9,7 +9,7 @@ interface ChatStore {
   allUsers: UserRes[];
   currentChat: Chat | null;
   setAllChats: (allChats: Chat[]) => void;
-  setCurrentChat: (user: Chat | null) => void;
+  setCurrentChat: (currentChat: Chat | null) => void;
   setAllMessages: (allMessages: MessageType[]) => void;
   setAllUsers: (allUsers: UserRes[]) => void;
 }

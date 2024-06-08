@@ -12,6 +12,7 @@ const ChatList = () => {
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
   const socket = useSocketStore((state) => state.socket);
+  const currentChat = useChatStore((state) => state.currentChat);
   const setCurrentChat = useChatStore((state) => state.setCurrentChat);
 
   const { data: chats, isFetching } = useQuery({
@@ -46,11 +47,18 @@ const ChatList = () => {
         setAllChats([...allChats, chat]);
       });
 
+      socket?.on("new group users response", (chat) => {
+        console.log("User add response");
+        const newChats = replaceChat(allChats, chat);
+        currentChat?._id === chat._id && setCurrentChat(chat);
+        setAllChats(newChats);
+      });
+
       socket?.on("user deleted response", (chat) => {
         console.log("User deleted response");
         const newChats = replaceChat(allChats, chat);
         setAllChats(newChats);
-        setCurrentChat(chat);
+        currentChat?._id === chat._id && setCurrentChat(chat);
       });
 
       return () => {
@@ -61,7 +69,7 @@ const ChatList = () => {
         socket?.off("user deleted response");
       };
     }
-  }, [socket, setCurrentChat, setAllChats, allChats]);
+  });
 
   return (
     <Stack

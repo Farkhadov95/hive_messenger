@@ -17,12 +17,14 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { addUserToGroup } from "../../services/chats";
 import { useSocketStore } from "../../store/socketStore";
+import { replaceChat } from "../chat-list/utils";
 
 const ChatUsersAdd = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const socket = useSocketStore((state) => state.socket);
   const allUsers = useChatStore((state) => state.allUsers);
   const currentChat = useChatStore((state) => state.currentChat);
+  const setCurrentChat = useChatStore((state) => state.setCurrentChat);
   const allChats = useChatStore((state) => state.allChats);
   const setAllChats = useChatStore((state) => state.setAllChats);
   const [selectedUserIDs, setSelectedUserIDs] = useState<string[]>([]);
@@ -50,7 +52,8 @@ const ChatUsersAdd = () => {
     mutationFn: () => addUserToGroup(currentChat!._id, selectedUserIDs),
     onSuccess: (data) => {
       socket?.emit("new group users", data);
-      setAllChats([...allChats, data]);
+      setAllChats(replaceChat(allChats, data));
+      currentChat?._id === data._id && setCurrentChat(data);
       handleClose();
     },
   });
